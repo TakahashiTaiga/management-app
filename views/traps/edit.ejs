@@ -10,38 +10,40 @@
 
 <body class="container">
     <div role="main" id="Box">
-        <div id="contentsHeader">
-            <h1><%= name %></h1>
-            <div id="contentsCancel"><a href="/traps"><button type="button" class="btn-close" aria-label="Close"></button></a></div>
-        </div>
-        <div id="contentsBox">
-            <div id="contentsText">
-                <div class="mb-3">
-                    <label for="newname" class="form-label">名前:</label>
-                    <input type="text" class="form-control" name="newname" id="newname" value=<%= name %>>
+        <form method="post" action="/traps/edit/<%= trap_id %>">
+            <div id="contentsHeader">
+                <h1><%= name %></h1>
+                <div id="contentsCancel"><a href="/traps"><button type="button" class="btn-close" aria-label="Close"></button></a></div>
+            </div>
+            <div id="contentsBox">
+                <div id="contentsText">
+                    <div class="mb-3">
+                        <label for="new_name" class="form-label">名前:</label>
+                        <input type="text" class="form-control" name="new_name" id="new_name" value=<%= name %>>
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_extension_unit_id" class="form-label">子機番号：</label>
+                        <input type="text" class="form-control" name="new_extension_unit_id" id="new_extension_unit_id" value=<%= extension_unit_id %>>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="newextentionUnitID" class="form-label">子機番号：</label>
-                    <input type="text" class="form-control" name="newextentionUnitID" id="newextentionUnitID" value=<%= extentionUnitID %>>
+                <div id="contentsMap">
+                    <p>位置情報：</p>
+                    <!-- map -->
+                    <div id="contentsCanvas"></div>
+                    <button type="button" class="btn btn-primary">新しい位置情報</button>
+                </div>
+                <div id="contentsMemo">
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">メモ:</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="new_memo" rows="3"><%= memo %></textarea>
+                    </div>
                 </div>
             </div>
-            <div id="contentsMap">
-                <p>位置情報：</p>
-                <!-- map -->
-                <div id="contentsCanvas"></div>
-                <button type="button" class="btn btn-primary">新しい位置情報</button>
+            <div id="te_editButton">
+                <button type="button" class="btn btn-outline-secondary">削除</button>
+                <input type="submit" value="完了" class="btn btn-primary">
             </div>
-            <div id="contentsMemo">
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">メモ:</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"><%= memo %></textarea>
-                </div>
-            </div>
-        </div>
-        <div id="te_editButton">
-            <button type="button" class="btn btn-outline-secondary">削除</button>
-            <a href="/traps"><button type="button" class="btn btn-primary">完了</button></a>
-        </div>
+        </form>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

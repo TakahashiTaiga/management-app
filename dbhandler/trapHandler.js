@@ -1,95 +1,107 @@
-const mysql = require("mysql");
+const mysql = require("mysql2/promise");
+const ih = require('./installHandler');
 
+
+const log4js = require("log4js");
+const logger = log4js.getLogger();
+logger.level = "debug";
 
 class trapHandler {
     constructor(){
-        this.connection = mysql.createClient({
-            host: "local_host",
+        this.db_setting = {
+            host: "localhost",
             user: "root",
             password: "JjqKwzHd5RnA",
-            database: "mydb"        
-        });
-        
-        this.connection.connect();
+            database: "mydb"       
+        };
     } 
-
-    desconnect(){
-        this.connection.end();
-    }
  
-    getTrapAll(user_id) {
-        var res;
-        this.userdb.query("select trap.trap_id, trap.name, trap.state, trap.first, trap.last from trap, install  where trap.trap_id = install.trap_id and install.user_id = ?;", [user_id], function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-        return res;
-    }
+    async getTrapAll(user_id) {
+        try {
+            const connection = await mysql.createConnection(this.db_setting);
+            logger.debug("connected db");
 
-    getTrapIndividual(trap_id) {
-        var trap_id = trap_id;
-        var res;
-        this.connection.query("SELECT * FROM trap WHERE trap_id == ?", [trap_id], function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-        return res;
-    }
+            const query = "SELECT trap.trap_id, trap.name, trap.state, trap.start, trap.last FROM trap, install WHERE trap.trap_id = install.trap_id and install.user_id = ?";
+            const [rows, fields] = await connection.execute(query, [user_id]);
+            const res = rows;
+            logger.debug("res:" + res);
+                
+            await connection.end();
+            logger.debug("closed db");
+            return res;
 
-    insertTrapRecord(name, extension_unit_id, location, memo){
-        var name = name;
-        var extension_unit_id = extension_unit_id;
-        var location = location;
-        var memo = memo;
-        var res;
-        this.connection.query("INSERT INTO trap", {name:name, extension_unit_id:extension_unit_id, location:location, memo:memo}, function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-        return res;
-    }
-
-    updateTrapIndividual(trap_id, name, extension_unit_id, location, memo){
-        var trap_id = trap_id;
-        var name = name;
-        var extension_unit_id = extension_unit_id;
-        var location = location;
-        var memo = memo;
-        var res;
-        this.connection.query("UPDATE trap SET  name= ? extension_unit_id = ? location = ? memo = ? WHERE trap_id = ?", [name, extension_unit_id, location, memo, trap_id], function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-        return res;
-    }
-
-    constantTrapUpdate(extension_unit_id, time, state){
-        var extension_unit_id = extension_unit_id;
-        var time = time;
-        var state = state;
-        var res;
-
-        this.connection.query("UPDATE trap SET state = ? last = ? WHERE extension_unit_id = ?", [state, time, extension_unit_id], function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-
-        if(res.start==NULL){
-            this.connection.query("UPDATE trap SET start = ? WHERE extension_unit_id = ?", [time, extension_unit_id], function(error, response) {
-                if(error) throw error;
-                res = response;
-            });
+        } catch(error) {
+            logger.debug(error);
         }
-        return res;
     }
 
-    deleteTrapIndividual(trap_id){
-        var trap_id = trap_id;
-        var res;
-        this.connection.query("DELETE FROM trap WHERE trap_id = ?", [trap_id], function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-        return res;
+    async addTrap(user_id, extension_unit_id, name, memo){
+        try {
+            const connection = await mysql.createConnection(this.db_setting);
+            logger.debug("connected db");
+
+            const query = "INSERT INTO trap (extension_unit_id, name, memo) VALUES (?, ?, ?)";
+            const [rows, fields] = await connection.execute(query, [extension_unit_id, name, memo]);
+            const res = rows;
+            logger.debug("res:" + res);
+            logger.debug(JSON.stringify(res));
+
+            const trap_id = res.insertId;
+                
+            await connection.end();
+            logger.debug("closed db");
+
+            // update install
+            logger.debug("call setTrapId");
+            const install_handler = new ih();
+            const result = await install_handler.setTrapId(user_id, trap_id);
+            logger.debug("result:" + result);
+
+            return res;
+
+        } catch(error) {
+            logger.debug(error);
+        }
+    }
+
+    async getTrapIndividual(trap_id) {
+        try {
+            const connection = await mysql.createConnection(this.db_setting);
+            logger.debug("connected db");
+
+            const query = "SELECT * FROM trap WHERE trap_id = ?";
+            const [rows, fields] = await connection.execute(query, [trap_id]);
+            const res = rows;
+            logger.debug("res:" + res);
+                
+            await connection.end();
+            logger.debug("closed db");
+            return res;
+
+        } catch(error) {
+            logger.debug(error);
+        }
+    }
+
+    async updateTrapIndividual(trap_id, extension_unit_id, name, memo) {
+        try {
+            const connection = await mysql.createConnection(this.db_setting);
+            logger.debug("connected db");
+
+            logger.debug(extension_unit_id, name, memo, trap_id);
+            const query = "UPDATE trap SET extension_unit_id = ?, name = ?, memo = ? WHERE trap_id = ?";
+            const [rows, fields] = await connection.execute(query, [extension_unit_id, name, memo, trap_id]);
+            const res = rows;
+            logger.debug("res:" + res);
+                
+            await connection.end();
+            logger.debug("closed db");
+            return res;
+
+        } catch(error) {
+            logger.debug(error);
+        }
     }
 }
+
+module.exports = trapHandler;

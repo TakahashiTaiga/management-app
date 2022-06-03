@@ -1,63 +1,103 @@
-const mysql = require("mysql");
+const mysql = require("mysql2/promise");
 const md5 = require("md5");
+
+const log4js = require("log4js");
+const logger = log4js.getLogger();
+logger.level = "debug";
 
 
 class userHandler {
     constructor(){
-        this.connection = mysql.createClient({
-            host: "local_host",
+        this.db_setting = {
+            host: "localhost",
             user: "root",
             password: "JjqKwzHd5RnA",
-            database: "mydb"        
-        });
-        
-        this.connection.connect();
+            database: "mydb"       
+        };
     } 
 
-    desconnect(){
-        this.connection.end();
+    async findUser(mail, pass){
+        let hash_pass = md5(pass);
+
+        try {
+            const connection = await mysql.createConnection(this.db_setting);
+            logger.debug("connected db");
+
+            const query = "SELECT user_id FROM user WHERE mail_address = ? and pass = ?";
+            const [rows, fields] = await connection.execute(query, [mail, hash_pass]);
+            const res = rows;
+            logger.debug("res:" + res);
+                
+            await connection.end();
+            logger.debug("closed db");
+            return res;
+
+        } catch(error) {
+            logger.debug(error);
+        }
     }
 
-    getUserIndividual(mail) {
-        var mail = mail;
-        var res;
-        this.connection.query("SELECT * FROM user WHERE mail_address == ?", [mail], function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-        return res;
+    async addUser(mail, pass){
+        let hash_pass = md5(pass);
+
+        try {
+            const connection = await mysql.createConnection(this.db_setting);
+            logger.debug("connected db");
+
+            const query = "INSERT INTO user (mail_address, pass) VALUES (?, ?)";
+            const [rows, fields] = await connection.execute(query, [mail, hash_pass]);
+            const res = rows;
+            logger.debug("res:" + res);
+
+            await connection.end();
+            logger.debug("closed db");
+            return res;
+
+        } catch(error) {
+            logger.debug(error);
+        }
     }
 
-    insertUserIndividual(mail, pass){
-        var mail = mail;
-        var pass = md5(pass);
-        var res;
-        this.connection.query("INSERT INTO user", {mail_address:mail, pass:pass}, function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-        return res;
+    async getUserMailAddress(user_id){
+        try {
+            const connection = await mysql.createConnection(this.db_setting);
+            logger.debug("connected db");
+
+            const query = "SELECT mail_address FROM user WHERE user_id = ?";
+            const [rows, fields] = await connection.execute(query, [user_id]);
+            const res = rows;
+            logger.debug("res:" + res);
+                
+            await connection.end();
+            logger.debug("closed db");
+            return res;
+
+        } catch(error) {
+            logger.debug(error);
+        }
     }
 
-    updateUserIndividual(user_id, mail, pass){
-        var user_id = user_id;
-        var mail = mail;
-        var pass = md5(pass);
-        var res;
-        this.connection.query("UPDATE user SET mail_address = ? pass = ? WHERE user_id = ?", [mail, pass, user_id], function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-        return res;
-    }
+    async updateUser(user_id, mail, pass){
+        let hash_pass = md5(pass);
 
-    deleteUserIndividual(user_id){
-        var user_id = user_id;
-        var res;
-        this.connection.query("DELETE FROM user WHERE user_id = ?", [user_id], function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-        return res;
+        try {
+            const connection = await mysql.createConnection(this.db_setting);
+            logger.debug("connected db");
+
+            const query = "UPDATE user SET mail_address = ?, pass = ? WHERE user_id = ?";
+            const [rows, fields] = await connection.execute(query, [mail, hash_pass, user_id]);
+            const res = rows;
+            logger.debug("res:" + res);
+
+            await connection.end();
+            logger.debug("closed db");
+            return res;
+
+        } catch(error) {
+            logger.debug(error);
+        }
     }
 }
+
+
+module.exports = userHandler;

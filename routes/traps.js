@@ -1,33 +1,39 @@
-const { checkPrime } = require('crypto');
-var express = require('express');
-var path = require('path');
-var tdbh = require('../dbhandler/trapHandler');
-var router = express.Router();
+const express = require('express');
+const path = require('path');
+const th = require('../dbhandler/trapHandler');
+const log4js = require("log4js");
+const logger = log4js.getLogger();
+logger.level = "debug";
 
 // login using session
+function check(req,res) {
+    if (req.session.login == null) {
+      req.session.back = '/traps';
+      res.redirect('/users/login');
+      return true;
+    } else {
+      return false;
+    }
+}
 
+const router = express.Router();
 
 /* GET home page. */
 //trap
-router.get('/', function(req, res, next) {
-    var contents = {
-        1:{
-            trapID:1111,
-            name:"わな1",
-            state:"未作動",
-            start:"2022:12:20:08:50",
-            last:"2022:12:21:12:30"},
-        2:{
-            trapID:1112,
-            name:"わな2",
-            state:"未作動",
-            start:"2022:12:20:08:50",
-            last:"2022:12:21:12:30"},   
-    }
+router.get('/', async function(req, res, next) {
+    if (check(req,res)){ return };
+
+    const user_id = req.session.login[0]["user_id"];
+    logger.debug(user_id);
+
+    logger.debug("call getTrapAll");
+    const trap_handler = new th();
+    const result = await trap_handler.getTrapAll(user_id);
+    logger.debug("result:" + result);
 
     var data = {
         title:"わな一覧",
-        contents:contents
+        contents:result
     }
     // show table
     res.render('traps/index', data);
@@ -35,72 +41,79 @@ router.get('/', function(req, res, next) {
 
 // /trap/add
 router.get('/add', function(req, res, next) {
-
+    if (check(req,res)){ return };
     // add installID to url
     res.render('traps/add');
 });
 
 // /trap/add
-router.post('/add', function(req, res, next) {
+router.post('/add', async function(req, res, next) {
+    if (check(req,res)){ return };
+    const name = req.body.name;
+    const extension_unit_id = req.body.extension_unit_id;
+    const memo = req.body.memo;
+    const user_id = req.session.login[0]["user_id"];
+
+    logger.debug("call addTrap");
+    const trap_handler = new th();
+    const result = await trap_handler.addTrap(user_id, extension_unit_id, name, memo);
+    logger.debug("result:" + result);
 
     // redirect /
     res.redirect('/traps');
 });
 
 // trap/individual
-router.get('/individual/:trapID', function(req, res, next) {
-    const trapID = req.params.trapID * 1;
-    if(trapID == "1111"){
-        var data = {
-            name:"わな1",
-            extentionUnitID:"aaaa",
-            state:"未作動",
-            start:"2022:12:20:08:50",
-            last:"2022:12:21:12:30",
-            memo:"くくりわな、来週撤去",
-            trapID:trapID
-        }    
+router.get('/individual/:trapID', async function(req, res, next) {
+    if (check(req,res)){ return };
+    const trap_id = req.params.trapID * 1;
+    
+    logger.debug("call getTrapIndividual");
+    const trap_handler = new th();
+    const result = await trap_handler.getTrapIndividual(trap_id);
+    logger.debug("result:" + JSON.stringify(result));
+/*
+    const data = {
+        trap_id:result[0]["trap_id"],
+        name:result[0]["name"],
+        extension_unit_id:result[0]["extension"],
+        state:result[0]["trap_id"],
+        start:result[0]["trap_id"],
+        last:result[0]["trap_id"],
+        memo:result[0]["trap_id"],
     }
-    else if(trapID == "1112"){
-        var data = {
-            name:"わな2",
-            extentionUnitID:"bbbb",
-            state:"未作動",
-            start:"2022:12:20:08:50",
-            last:"2022:12:21:12:30",
-            memo:"くくりわな、再来週撤去",
-            trapID:trapID
-        }    
-    }
-  // add installID to url
-  res.render('traps/individual', data);
+*/
+    // add installID to url
+    res.render('traps/individual', result[0]);
 });
   
 // trap/edit
-router.get('/edit/:trapID', function(req, res, next) {
-    const trapID = req.params.trapID * 1;
-    if(trapID == "1111"){
-        var data = {
-            name:"わな1",
-            extentionUnitID:"aaaa",
-            memo:"くくりわな、来週撤去",
-            trapID:trapID
-        }    
-    }
-    else if(trapID == "1112"){
-        var data = {
-            name:"わな2",
-            extentionUnitID:"bbbb",
-            memo:"くくりわな、再来週撤去",
-            trapID:trapID
-        }    
-    }
-  // redirect /trap
-  res.render('traps/edit', data);
+router.get('/edit/:trap_id', async function(req, res, next) {
+    if (check(req,res)){ return };
+    const trap_id = req.params.trap_id * 1;
+
+    logger.debug("call getTrapIndividual")
+    const trap_handler = new th();
+    const result = await trap_handler.getTrapIndividual(trap_id);
+    logger.debug("result:" + result);
+
+    // redirect /trap
+    res.render('traps/edit', result[0]);
 });
 
 // trap/edit
-router.post('/edit', function(req, res, next) {
+router.post('/edit/:trap_id', async function(req, res, next) {
+    if (check(req,res)){ return };
+    const trap_id = req.params.trap_id * 1;
+    const name = req.body.new_name;
+    const extension_unit_id = req.body.new_extension_unit_id;
+    const memo = req.body.new_memo;
+    logger.debug(trap_id, extension_unit_id, name, memo);
+
+    logger.debug("call updateTrapIndividual")
+    const trap_handler = new th();
+    const result = await trap_handler.updateTrapIndividual(trap_id, extension_unit_id, name, memo);
+    logger.debug("result:" + result);
 
     // redirect /trap
     res.redirect('/traps');

@@ -1,55 +1,57 @@
-const mysql = require("mysql");
-const md5 = require("md5");
+const mysql = require("mysql2/promise");
 
+const log4js = require("log4js");
+const logger = log4js.getLogger();
+logger.level = "debug";
 
 class installHandler {
     constructor(){
-        this.connection = mysql.createClient({
-            host: "local_host",
+        this.db_setting = {
+            host: "localhost",
             user: "root",
             password: "JjqKwzHd5RnA",
-            database: "mydb"        
-        });
-        
-        this.connection.connect();
+            database: "mydb"       
+        };
     } 
 
-    desconnect(){
-        this.connection.end();
+    async setTrapId(user_id, trap_id){
+        try {
+            const connection = await mysql.createConnection(this.db_setting);
+            logger.debug("connected db");
+
+            const query = "INSERT INTO install (user_id, trap_id, hanternote_id) VALUES (?, ?, -999999)";
+            const [rows, fields] = await connection.execute(query, [user_id, trap_id]);
+            const res = rows;
+            logger.debug("res:" + res);
+
+            await connection.end();
+            logger.debug("closed db");
+            return res;
+
+        } catch(error) {
+            logger.debug(error);
+        }
     }
 
-    setTrapId(user_id, trap_id){
-        var user_id = user_id;
-        var trap_id = trap_id;
-        var res;
+    async setHanternoteId(trap_id, hanternote_id){
+        try {
+            const connection = await mysql.createConnection(this.db_setting);
+            logger.debug("connected db");
 
-        this.connection.query("INSERT INTO install", {user_id:user_id, trap_id:trap_id}, function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-        return res;
-    }
+            logger.debug(trap_id, hanternote_id);
+            const query = "UPDATE install SET hanternote_id = ? WHERE trap_id = ?";
+            const [rows, fields] = await connection.execute(query, [hanternote_id, trap_id]);
+            const res = rows;
+            logger.debug("res:" + res);
 
-    setHanternoteId(install_id, hanternote_id){
-        var install_id = install_id;
-        var hanternote_id = hanternote_id;
-        var res;
+            await connection.end();
+            logger.debug("closed db");
+            return res;
 
-        this.connection.query("UPDATE install SET hanternote = ? WHERE install_id = ?", [hanternote_id, install_id], function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-        return res;
-    }
-
-    deleteUserIndividual(install_id){
-        var install_id = install_id;
-        var res;
-
-        this.connection.query("DELETE FROM install WHERE install_id = ?", [install_id], function(error, response) {
-            if(error) throw error;
-            res = response;
-        });
-        return res;
+        } catch(error) {
+            logger.debug(error);
+        }
     }
 }
+
+module.exports = installHandler;

@@ -10,38 +10,40 @@
 
 <body class="container">
     <div role="main" id="Box">
-        <div id="contentsHeader">
-            <h1>新規登録</h1>
-            <div id="contentsCancel"><a href="/traps"><button type="button" class="btn-close" aria-label="Close"></button></a></div>
-        </div>
-        <div id="contentsBox">
-            <div id="contentsText">
-                <div class="mb-3">
-                    <label for="name" class="form-label">名前:</label>
-                    <input type="text" class="form-control" name="name" id="name">
+        <form method="post" action="/traps/add">
+            <div id="contentsHeader">
+                <h1>新規登録</h1>
+                <div id="contentsCancel"><a href="/traps"><button type="button" class="btn-close" aria-label="Close"></button></a></div>
+            </div>
+            <div id="contentsBox">
+                <div id="contentsText">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">名前:</label>
+                        <input type="text" class="form-control" name="name" id="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="extension_unit_id" class="form-label">子機番号：</label>
+                        <input type="text" class="form-control" name="extension_unit_id" id="extension_unit_id">
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="extentionUnitID" class="form-label">子機番号：</label>
-                    <input type="text" class="form-control" name="extentionUnitID" id="extentionUnitID">
+                <div id="contentsMap">
+                    <p>位置情報：</p>
+                    <!-- map -->
+                    <div id="contentsCanvas"></div>
+                    <button type="button" class="btn btn-primary">位置情報を登録</button>
+                </div>
+                <div id="contentsMemo">
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">メモ:</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="memo" rows="3"></textarea>
+                    </div>
                 </div>
             </div>
-            <div id="contentsMap">
-                <p>位置情報：</p>
-                <!-- map -->
-                <div id="contentsCanvas"></div>
-                <button type="button" class="btn btn-primary">位置情報を登録</button>
+            <div id="ti_editButton">
+                <input type="submit" value="新規登録" class="btn btn-primary">
             </div>
-            <div id="contentsMemo">
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">メモ:</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-            </div>
-        </div>
-        <div id="ti_editButton">
-            <a href="/traps/"><button type="button" class="btn btn-primary">新規登録</button></a>
-        </div>
-  </div>
+        </form>
+    </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 

@@ -16,17 +16,15 @@
   <div role="main">
     <p><%- content %></p>
     <form method="post" action="/users/login">
-        
         <div class="mb-3">
-            <label for="mailaddress" class="form-label">メールアドレス</label>
-            <input type="email" class="form-control" name="mailaddress" id="mailaddress">
+            <label for="mail_address" class="form-label">メールアドレス</label>
+            <input type="email" class="form-control" name="mail_address" id="mail_address">
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">パスワード</label>
             <input type="text" class="form-control" name="password" id="password">
         </div>
-      <input type="submit" value="ログイン" 
-        class="btn btn-primary">
+      <input type="submit" value="ログイン" class="btn btn-primary">
     </form>
     <p class="mt-4"><a href="/users/add">アカウントの作成&gt;&gt;</a></p>
   </div>

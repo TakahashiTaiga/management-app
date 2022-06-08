@@ -119,5 +119,18 @@ router.post('/edit/:trap_id', async function(req, res, next) {
     res.redirect('/traps');
 });
   
+// trap/edit
+router.get('/delete/:trap_id', async function(req, res, next) {
+    if (check(req,res)){ return };
+    const trap_id = req.params.trap_id * 1;
+
+    logger.debug("call deleteTrap")
+    const trap_handler = new th();
+    const result = await trap_handler.deleteTrap(trap_id);
+    logger.debug("result:" + result);
+
+    // redirect /trap/
+    res.redirect('/traps/');
+});
 
 module.exports = router;

@@ -121,4 +121,19 @@ router.post('/edit', async function(req, res, next) {
   res.redirect('/users/login');
 });
 
+// /users/edit
+router.get('/delete', async function(req, res, next) {
+  if (check(req,res)){ return };
+  // user mailaddress from db
+  const user_id = req.session.login[0]["user_id"];
+  
+  logger.debug("call getUserAddress")
+  const user_handler = new uh();
+  const result = await user_handler.deleteUser(user_id);
+  logger.debug("result:" + result);
+
+  // redirect /
+  res.redirect('/users/login');
+});
+
 module.exports = router;

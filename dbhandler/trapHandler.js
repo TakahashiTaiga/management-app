@@ -102,6 +102,26 @@ class trapHandler {
             logger.debug(error);
         }
     }
+
+    async deleteTrap(trap_id) {
+        try {
+            const connection = await mysql.createConnection(this.db_setting);
+            logger.debug("connected db");
+
+            logger.debug(trap_id);
+            const query = "DELETE from trap WHERE trap_id = ?";
+            const [rows, fields] = await connection.execute(query, [trap_id]);
+            const res = rows;
+            logger.debug("res:" + res);
+                
+            await connection.end();
+            logger.debug("closed db");
+            return res;
+
+        } catch(error) {
+            logger.debug(error);
+        }
+    }
 }
 
 module.exports = trapHandler;

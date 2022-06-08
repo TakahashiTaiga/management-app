@@ -97,6 +97,27 @@ class userHandler {
             logger.debug(error);
         }
     }
+
+    async deleteUser(user_id) {
+        try {
+            const connection = await mysql.createConnection(this.db_setting);
+            logger.debug("connected db");
+
+            // 保留
+            logger.debug(user_id);
+            const query = "DELETE from user WHERE user_id = ?";
+            const [rows, fields] = await connection.execute(query, [user_id]);
+            const res = rows;
+            logger.debug("res:" + res);
+                
+            await connection.end();
+            logger.debug("closed db");
+            return res;
+
+        } catch(error) {
+            logger.debug(error);
+        }
+    }
 }
 
 

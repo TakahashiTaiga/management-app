@@ -156,7 +156,11 @@ router.post('/add/:trap_id', async function(req, res, next) {
   const result = await hanternote_handler.addHnaternote(trap_id, new_name, new_result, new_extension_unit_id, new_memo);
   logger.debug("result:" + result);
 
-  // update db
+  logger.debug("call deleteTrap")
+  const trap_handler = new th();
+  const result2 = await trap_handler.deleteTrap(trap_id);
+  logger.debug("result:" + result2);
+
 
   // redirect /hanternote/recode
   res.redirect('/hanternote');
@@ -217,5 +221,19 @@ router.post('/edit/:hanternote_id', async function(req, res, next) {
   res.redirect('/hanternote');
 });
   
+//hanternote/delete
+router.get('/delete/:hanternote_id', async function(req, res, next) {
+  if (check(req,res)){ return };
+  const hanternote_id = req.params.hanternote_id * 1;
+
+  logger.debug("call deleteHanternoteRecord");
+  const hanternote_handler = new hh();
+  const result = await hanternote_handler.deleteHanternoteRecord(hanternote_id);
+  logger.debug("result:" + result[0]);
+
+
+  // redirect /hanternote/
+  res.redirect('/hanternote/');
+});
 
 module.exports = router;

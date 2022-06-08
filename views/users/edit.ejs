@@ -27,7 +27,30 @@
             <label for="new_password" class="form-label">新しいパスワード</label>
             <input type="text" class="form-control" name="new_password" id="new_password">
         </div>
-        <input type="submit" value="変更" class="btn btn-primary">
+
+        <div id="te_editButton">
+          <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">削除</button>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel"><%- old_mail_address %></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      本当に<%- old_mail_address %>を削除しますか？
+                  </div>
+                  <div class="modal-footer">
+                      <a href="/users/edit"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button></a>
+                      <a href="/users/delete"><button type="button" class="btn btn-primary">削除</button></a>
+                  </div>
+              </div>
+              </div>
+          </div>
+          
+          <input type="submit" value="変更" class="btn btn-primary">
+        </div>
     </form>
     <p class="mt-4"><a href="/traps/">ホームへ&gt;&gt;</a></p>
   </div>

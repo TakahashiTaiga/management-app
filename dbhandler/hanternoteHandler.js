@@ -1,22 +1,25 @@
 const mysql = require("mysql2/promise");
-const ih = require('./installHandler');
-const th = require('./trapHandler');
+//const ih = require('./installHandler');
+//const th = require('./trapHandler');
+const hf = require('./handleFuncs');
 
 const log4js = require("log4js");
 const logger = log4js.getLogger();
 logger.level = "debug";
 
 class hanternoteHandler {
-    constructor(){
-        this.db_setting = {
-            host: "localhost",
-            user: "root",
-            password: "JjqKwzHd5RnA",
-            database: "mydb"       
-        };
-    } 
  
     async getHanternoteAll(user_id) {
+        const handle_func = new hf;
+        const query = "SELECT * FROM hanternote, install WHERE hanternote.hanternote_id = install.hanternote_id and install.user_id = ?";
+        const values = [user_id];
+        
+        const res = await handle_func.executeSingleQuery(query, values);
+
+        logger.debug(res);
+        return res;
+
+        /*
         try {
             const connection = await mysql.createConnection(this.db_setting);
             logger.debug("connected db");
@@ -33,9 +36,20 @@ class hanternoteHandler {
         } catch(error) {
             logger.debug(error);
         }
+        */
     }
 
     async getHanternoteRecord(hanternote_id) {
+        const handle_func = new hf;
+        const query = "SELECT * FROM hanternote WHERE hanternote_id = ?";
+        const values = [hanternote_id];
+        
+        const res = await handle_func.executeSingleQuery(query, values);
+        
+        logger.debug(res);
+        return res;
+
+        /*
         try {
             const connection = await mysql.createConnection(this.db_setting);
             logger.debug("connected db");
@@ -52,9 +66,18 @@ class hanternoteHandler {
         } catch(error) {
             logger.debug(error);
         }
+        */
     }
 
     async addHnaternote(trap_id, name, result, extension_unit_id, memo){
+        const handle_func = new hf;
+        
+        const res = await handle_func.executeAddHanternote(trap_id, name, result, extension_unit_id, memo);
+        
+        logger.debug(res);
+        return res;
+
+        /*
         try {
             logger.debug("call getTrapIndividual");
             const trap_handler = new th();
@@ -86,10 +109,22 @@ class hanternoteHandler {
         } catch(error) {
             logger.debug(error);
         }
+        */
+        
     }
 
 
     async updateHanternoteIndividual(hanternote_id, extension_unit_id, name, memo, result) {
+        const handle_func = new hf;
+        const query = "UPDATE hanternote SET name = ?, extension_unit_id = ?, memo = ?, result = ? WHERE hanternote_id = ?";
+        const values = [name, extension_unit_id, memo, result, hanternote_id];
+        
+        const res = await handle_func.executeSingleQuery(query, values);
+        
+        logger.debug(res);
+        return res;
+
+        /*
         try {
             const connection = await mysql.createConnection(this.db_setting);
             logger.debug("connected db");
@@ -106,9 +141,20 @@ class hanternoteHandler {
         } catch(error) {
             logger.debug(error);
         }
+        */
     }
 
     async deleteHanternoteRecord(hanternote_id) {
+        const handle_func = new hf;
+        const query = "DELETE from hanternote WHERE hanternote_id = ?";
+        const values = [hanternote_id];
+        
+        const res = await handle_func.executeSingleQuery(query, values);
+        
+        logger.debug(res);
+        return res;
+
+        /*
         try {
             const connection = await mysql.createConnection(this.db_setting);
             logger.debug("connected db");
@@ -126,6 +172,7 @@ class hanternoteHandler {
         } catch(error) {
             logger.debug(error);
         }
+        */
     }
 }
 

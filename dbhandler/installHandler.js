@@ -1,20 +1,23 @@
 const mysql = require("mysql2/promise");
+const hf = require("./handleFuncs");
 
 const log4js = require("log4js");
 const logger = log4js.getLogger();
 logger.level = "debug";
 
 class installHandler {
-    constructor(){
-        this.db_setting = {
-            host: "localhost",
-            user: "root",
-            password: "JjqKwzHd5RnA",
-            database: "mydb"       
-        };
-    } 
 
     async setTrapId(user_id, trap_id){
+        const handle_func = new hf;
+        const query = "INSERT INTO install (user_id, trap_id, hanternote_id) VALUES (?, ?, -999999)";
+        const values = [user_id, trap_id];
+        
+        const result = await handle_func.executeSingleQuery(query, values);
+
+        logger.debug(result);
+        return result;
+
+        /*
         try {
             const connection = await mysql.createConnection(this.db_setting);
             logger.debug("connected db");
@@ -31,9 +34,20 @@ class installHandler {
         } catch(error) {
             logger.debug(error);
         }
+        */
     }
 
     async setHanternoteId(trap_id, hanternote_id){
+        const handle_func = new hf;
+        const query = "UPDATE install SET hanternote_id = ? WHERE trap_id = ?";
+        const values = [hanternote_id, trap_id];
+        
+        const result = await handle_func.executeSingleQuery(query, values);
+
+        logger.debug(result);
+        return result;
+        
+        /*
         try {
             const connection = await mysql.createConnection(this.db_setting);
             logger.debug("connected db");
@@ -51,6 +65,7 @@ class installHandler {
         } catch(error) {
             logger.debug(error);
         }
+        */
     }
 }
 

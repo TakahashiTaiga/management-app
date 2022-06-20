@@ -121,7 +121,7 @@ router.post('/edit', async function(req, res, next) {
   res.redirect('/users/login');
 });
 
-// /users/edit
+// /users/delete
 router.get('/delete', async function(req, res, next) {
   if (check(req,res)){ return };
   // user mailaddress from db

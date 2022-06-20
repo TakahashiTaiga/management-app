@@ -1,22 +1,24 @@
 const mysql = require("mysql2/promise");
-const ih = require('./installHandler');
-
+// const ih = require('./installHandler');
+const hf = require("./handleFuncs");
 
 const log4js = require("log4js");
 const logger = log4js.getLogger();
 logger.level = "debug";
 
 class trapHandler {
-    constructor(){
-        this.db_setting = {
-            host: "localhost",
-            user: "root",
-            password: "JjqKwzHd5RnA",
-            database: "mydb"       
-        };
-    } 
  
     async getTrapAll(user_id) {
+        const handle_func = new hf;
+        const query = "SELECT trap.trap_id, trap.name, trap.state, trap.start, trap.last FROM trap, install WHERE trap.trap_id = install.trap_id and install.user_id = ?";
+        const values = [user_id];
+        
+        const result = await handle_func.executeSingleQuery(query, values);
+
+        logger.debug(result);
+        return result;
+
+        /*
         try {
             const connection = await mysql.createConnection(this.db_setting);
             logger.debug("connected db");
@@ -33,9 +35,18 @@ class trapHandler {
         } catch(error) {
             logger.debug(error);
         }
+        */
     }
 
     async addTrap(user_id, extension_unit_id, name, memo){
+        const handle_func = new hf;
+        
+        const result = await handle_func.executeAddTrap(user_id, extension_unit_id, name, memo);
+
+        logger.debug(result);
+        return result;
+
+        /*
         try {
             const connection = await mysql.createConnection(this.db_setting);
             logger.debug("connected db");
@@ -62,9 +73,20 @@ class trapHandler {
         } catch(error) {
             logger.debug(error);
         }
+        */
     }
 
     async getTrapIndividual(trap_id) {
+        const handle_func = new hf;
+        const query = "SELECT * FROM trap WHERE trap_id = ?";
+        const values = [trap_id];
+        
+        const result = await handle_func.executeSingleQuery(query, values);
+
+        logger.debug(result);
+        return result;
+
+        /*
         try {
             const connection = await mysql.createConnection(this.db_setting);
             logger.debug("connected db");
@@ -81,9 +103,20 @@ class trapHandler {
         } catch(error) {
             logger.debug(error);
         }
+        */
     }
 
     async updateTrapIndividual(trap_id, extension_unit_id, name, memo) {
+        const handle_func = new hf;
+        const query = "UPDATE trap SET extension_unit_id = ?, name = ?, memo = ? WHERE trap_id = ?";
+        const values = [extension_unit_id, name, memo, trap_id];
+        
+        const result = await handle_func.executeSingleQuery(query, values);
+
+        logger.debug(result);
+        return result;
+
+        /*
         try {
             const connection = await mysql.createConnection(this.db_setting);
             logger.debug("connected db");
@@ -101,9 +134,20 @@ class trapHandler {
         } catch(error) {
             logger.debug(error);
         }
+        */
     }
 
     async deleteTrap(trap_id) {
+        const handle_func = new hf;
+        const query = "DELETE from trap WHERE trap_id = ?";
+        const values = [trap_id];
+        
+        const result = await handle_func.executeSingleQuery(query, values);
+
+        logger.debug(result);
+        return result;
+        
+        /*
         try {
             const connection = await mysql.createConnection(this.db_setting);
             logger.debug("connected db");
@@ -121,6 +165,7 @@ class trapHandler {
         } catch(error) {
             logger.debug(error);
         }
+        */
     }
 }
 

@@ -119,7 +119,7 @@ router.post('/edit/:trap_id', async function(req, res, next) {
     res.redirect('/traps');
 });
   
-// trap/edit
+// trap/delete/:trap_id
 router.get('/delete/:trap_id', async function(req, res, next) {
     if (check(req,res)){ return };
     const trap_id = req.params.trap_id * 1;

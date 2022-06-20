@@ -1,5 +1,8 @@
 var express = require('express')
 var router = express.Router()
+const log4js = require("log4js");
+const logger = log4js.getLogger();
+logger.level = "debug";
 
 // const sqlite3 = require("mysql");
 // const db = new sqlite3.Database('mydb.sqlite3');
@@ -7,10 +10,8 @@ var router = express.Router()
 // /api/post
 router.post('/post', function (req, res, next) {
   const re = req.query;
-  // const trap = re.parentID + re.childID; delete parent
-  const trap = re.childID;
-  const status = re.status;
-
+  logger.debug(re);
+  
   // time stamp
   /*
     todo "change db type from int to varchar" 
@@ -23,4 +24,4 @@ router.post('/post', function (req, res, next) {
 
 });
 
-module.exports = router
+module.exports = router;

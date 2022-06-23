@@ -9,7 +9,7 @@ logger.level = "debug";
 
 // /api/post
 router.post('/post', function (req, res, next) {
-  const re = req.query;
+  const re = req;
   logger.debug(re);
   
   // time stamp

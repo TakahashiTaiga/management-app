@@ -32,6 +32,15 @@ router.post('/login', async function(req, res, next) {
   // get post data
   const mail_address = req.body.mail_address;
   const pass = req.body.password;
+
+  if(mail_address==null || pass == null){
+    const data = {
+      title:'ログイン',
+      content:'名前かパスワードに問題があります。再度入力して下さい。'
+    }
+
+    res.render('users/login', data);
+  }
   
   logger.debug("call findUser");
   logger.debug(mail_address, pass);
@@ -50,7 +59,7 @@ router.post('/login', async function(req, res, next) {
   }else{
     const data = {
       title:'ログイン',
-      content:'名前かパスワードに問題があります。再度入力下さい。'
+      content:'名前かパスワードに問題があります。再度して入力下さい。'
     }
 
     res.render('users/login', data);

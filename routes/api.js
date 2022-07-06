@@ -4,23 +4,11 @@ const log4js = require("log4js");
 const logger = log4js.getLogger();
 logger.level = "debug";
 
-// const sqlite3 = require("mysql");
-// const db = new sqlite3.Database('mydb.sqlite3');
-
 // /api/post
 router.post('/post', function (req, res, next) {
-  const re = req;
+  const re = req.body.uptime;
   logger.debug(re);
   
-  // time stamp
-  /*
-    todo "change db type from int to varchar" 
-  */
-
-  // update db
-  /*
-    
-  */
 
 });
 

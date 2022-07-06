@@ -11,14 +11,7 @@ class handleFuncs {
             port: process.env.MYSQL_PORT,
             user: process.env.MYSQL_USER,
             password: process.env.MYSQL_PASSWORD,
-            database: process.env.MYSQL_DATABASE
-            /*
-            host: "localhost",
-            user: "root",
-            password: "JjqKwzHd5RnA",
-            database: "mydb"
-            */    
-            
+            database: process.env.MYSQL_DATABASE            
         };
         
     } 

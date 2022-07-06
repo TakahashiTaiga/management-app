@@ -21,7 +21,6 @@ var router = express.Router();
 // /users/login
 router.get('/login', function(req, res, next) {
   const data = {
-    title:'ログイン',
     content:'メールアドレスとパスワードを入力して下さい。'
   }
   res.render('users/login', data);
@@ -33,14 +32,8 @@ router.post('/login', async function(req, res, next) {
   const mail_address = req.body.mail_address;
   const pass = req.body.password;
 
-  if(mail_address==null || pass == null){
-    const data = {
-      title:'ログイン',
-      content:'名前かパスワードに問題があります。再度入力して下さい。'
-    }
-
-    res.render('users/login', data);
-  }
+  if(mail_address==null){res.render('users/login', '名前かパスワードに問題があります。再度して入力下さい。');}
+  if(pass==null){res.render('users/login', '名前かパスワードに問題があります。再度して入力下さい。');}
   
   logger.debug("call findUser");
   logger.debug(mail_address, pass);
@@ -58,7 +51,6 @@ router.post('/login', async function(req, res, next) {
     res.redirect(back);
   }else{
     const data = {
-      title:'ログイン',
       content:'名前かパスワードに問題があります。再度して入力下さい。'
     }
 

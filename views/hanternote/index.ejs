@@ -9,38 +9,44 @@
   </head>
 
 <body class="container">
-  <header>
-    <h1 class="display-4">
-      <%= title %></h1>
-  </header>
-  <div role="main">
-    <p class="mt-4"><a href="/traps">ホームへ&gt;&gt;</a></p>
-    <table class="table table-striped">
+
+  <%- include('../side_bar', {val:2}) %>
+  
+  <div id="contents_main">
+    <div class="contents_header">
+      <div class="contents_title"><p class="contents_title_font"><%= title %></p></div>
+      <div class="contents_traps_account"><p class="contents_traps_account_font"><%= mail_address %>でログイン中</p></div>
+    </div>
+
+    <div class="contents_traps_table">
+      <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">わな</th>
-            <th scope="col">捕獲した獣の種類</th>
-            <th scope="col">最初の更新</th>
-            <th scope="col">最後の更新</th>
-            <th scope="col"></th>
+            <th scope="col" class="contents_traps_column_font">名前</th>
+            <th scope="col" class="contents_traps_column_font">捕獲した獣の種類</th>
+            <th scope="col" class="contents_traps_column_font">最初の更新</th>
+            <th scope="col" class="contents_traps_column_font">最後の更新</th>
+            <th scope="col" class="contents_traps_column_font">詳細</th>
           </tr>
         </thead>
         
         <tbody>
-            <% for (let i in contents) { %>
-                <tr>
-                  <td><%= contents[i].name %></td>
-                  <td><%= contents[i].result %></td>
-                  <td><%= contents[i].start %></td>
-                  <td><%= contents[i].last %></td>
-                  <td><a href="/hanternote/record/<%= contents[i].hanternote_id %>">詳細</a></td>
-                </tr>
-            <% } %>
-          
+          <% for (let i in contents) { %>
+            <tr>
+              <td><%= contents[i].name %></td>
+              <td><%= contents[i].result %></td>
+              <td><%= contents[i].start %></td>
+              <td><%= contents[i].last %></td>
+              <td><a href="/hanternote/record/<%= contents[i].hanternote_id %>">詳細</a></td>
+            </tr>
+        <% } %>
         </tbody>
         
-    </table>
-  </div>
+      </table>
+    </div>
+
+  </div>    
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 

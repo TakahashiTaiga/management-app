@@ -24,6 +24,7 @@ router.get('/', async function(req, res, next) {
   if (check(req,res)){ return };
 
     const user_id = req.session.login[0]["user_id"];
+    const mail_address =req.session.login[0]["mail_address"];
     logger.debug(user_id);
 
     logger.debug("call getHanternoteAll");
@@ -47,7 +48,8 @@ router.get('/', async function(req, res, next) {
   }
 */
   var data = {
-    title:"ハンターノート一覧",
+    title:"ハンターノート",
+    mail_address:mail_address,
     contents:result
   }
  

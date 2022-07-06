@@ -1,3 +1,4 @@
+/***
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -67,4 +68,233 @@ a {
   display: flex;
   justify-content: space-between;  
   margin-top: 20px;
+}
+***/
+/*** side bar ***/
+#side_bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 20vw;
+  height: 100vw;
+  
+  border-right: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.inner_bar {
+  margin: 3vw;
+  margin-top: 5vw;
+}
+
+.elements_bar {
+  margin-top: 2.5vw;
+}
+
+.font_elements_bar {
+  font-size: 24px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.font_elements_bar:hover {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.active_element {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/*** contents ***/
+#contents_main {
+  position: absolute;
+  left: 20vw;
+
+  width: 80vw;
+  height: 100vw;
+
+  padding: 5vw;
+}
+
+.contents_header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 70vw;
+}
+
+.contents_title {
+  padding-top: 2vh;
+  padding-right: 3vw;
+}
+
+.contents_title_font {
+  font-size: 28px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/*** /traps ***/
+
+.contents_traps_account {
+  margin-right: auto;
+  padding-top: 2vh;
+}
+
+.contents_traps_account_font {
+  font-size: 18px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+.contents_traps_addbtn {
+
+}
+
+.contents_traps_table {
+  padding-top: 3vh;
+}
+
+.contents_traps_column_font {
+  font-size: 15px;
+  text-decoration: none;
+  /* color: rgba(0, 0, 0, 0.7); */
+}
+
+
+/*** traps/individual ***/
+.contents_traps_individual_table {
+  
+}
+
+.contents_traps_individual_column {
+
+}
+
+.contents_traps_individual_column_label {
+  padding-top: 30px;
+
+  font-size: 20x;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.contents_traps_individual_column_data {
+  padding-top: 30px;
+  padding-left: 50px;
+  
+  font-size: 20px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.contents_traps_individual_map_and_memo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 70vw;
+}
+
+.contents_traps_individual_map {
+  padding-top: 30px;
+}
+
+.contents_traps_individual_map_label {
+  padding-bottom: 2vh;
+
+  font-size: 20px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.contents_traps_individual_map_figure {
+  width: 30vw;
+  height: 30vh;
+  background-color: gray;
+}
+
+.contents_traps_individual_memo {
+  padding-left: 50px;
+}
+
+.contents_traps_individual_memo_label {
+  padding-bottom: 2vh;
+
+  font-size: 20px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.contents_traps_individual_memo_para {
+  width: 30vw;
+  height: 30vh;
+}
+
+.contents_traps_individual_btns {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+
+  width: 70vw;
+}
+
+.contents_traps_individual_map_btn {
+  padding-top: 1vh;
+}
+
+.contents_traps_individual_memo_btn {
+  padding-top: 1vh;
+}
+
+.login_form {
+  margin: auto;
+  margin-top: 10vh;
+  padding: 3vw;
+  padding-bottom: 10vh;
+  width: 40vw;
+
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 25px;
+}
+
+.form_contents{
+  margin-top: 60px;
+}
+
+.inner_form {
+  margin-bottom: 30px;
+}
+
+.form_elements {
+  margin-bottom: 10px;
+}
+
+.form_font {
+  font-size: 24px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.form_btn {
+  margin-top: 10px;
+}
+
+.login_btn_font {
+  text-decoration: none;
+}
+
+.form_message_font {
+  font-size: 18px;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.form_message {
+  margin-bottom: 20px;
 }

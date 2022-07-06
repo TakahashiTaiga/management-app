@@ -13,7 +13,7 @@ class userHandler {
         let hash_pass = md5(pass);
 
         const handle_func = new hf;
-        const query = "SELECT user_id FROM user WHERE mail_address = ? and pass = ?";
+        const query = "SELECT user_id, mail_address FROM user WHERE mail_address = ? and pass = ?";
         const values = [mail, hash_pass];
         
         const result = await handle_func.executeSingleQuery(query, values);

@@ -24,15 +24,18 @@ router.get('/', async function(req, res, next) {
     if (check(req,res)){ return };
 
     const user_id = req.session.login[0]["user_id"];
+    const mail_address = req.session.login[0]["mail_address"]
     logger.debug(user_id);
+
 
     logger.debug("call getTrapAll");
     const trap_handler = new th();
     const result = await trap_handler.getTrapAll(user_id);
     logger.debug("result:" + result);
 
-    var data = {
-        title:"わな一覧",
+    const data = {
+        title:"ホーム",
+        mail_address:mail_address,
         contents:result
     }
     // show table
@@ -42,7 +45,6 @@ router.get('/', async function(req, res, next) {
 // /trap/add
 router.get('/add', function(req, res, next) {
     if (check(req,res)){ return };
-    // add installID to url
     res.render('traps/add');
 });
 
@@ -83,8 +85,13 @@ router.get('/individual/:trapID', async function(req, res, next) {
         memo:result[0]["trap_id"],
     }
 */
+    
+    const data = {
+        contents:result[0]
+    }
+
     // add installID to url
-    res.render('traps/individual', result[0]);
+    res.render('traps/individual', data);
 });
   
 // trap/edit

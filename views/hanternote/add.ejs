@@ -8,7 +8,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css'>
   </head>
 
-<body class="container">
+<body>
     <%- include('../side_bar', {val:2}) %>
 
     <div id="contents_main">
@@ -17,28 +17,28 @@
             <div class="contents_title"><p class="contents_title_font">新しいわなを登録</p></div>
             </div>
     
-            <div class="contents_traps_individual_table">
+            <div>
             <table>
                 <tbody>
-                    <tr class="contents_traps_individual_column">
-                        <th class="contents_traps_individual_column_label">名前</th>
-                        <td class="contents_traps_individual_column_data">
+                    <tr>
+                        <th class="contents_column_label">名前</th>
+                        <td class="contents_column_data">
                             <div class="mb-3">
                                 <input type="text" class="form-control" name="new_name" id="new_name" value=<%= name %>>
                             </div>
                         </td>
                     </tr>
-                    <tr class="contents_traps_individual_column">
-                        <th class="contents_traps_individual_column_label">捕獲した獣の種類</th>
-                        <td class="contents_traps_individual_column_data">
+                    <tr>
+                        <th class="contents_column_label">捕獲した獣の種類</th>
+                        <td class="contents_column_data">
                             <div class="mb-3">
                                 <input type="text" class="form-control" name="new_result" id="new_result">
                             </div>
                         </td>
                     </tr>
-                    <tr class="contents_traps_individual_column">
-                        <th class="contents_traps_individual_column_label">子機番号</th>
-                        <td class="contents_traps_individual_column_data">
+                    <tr>
+                        <th class="contents_column_label">子機番号</th>
+                        <td class="contents_column_data">
                             <div class="mb-3">
                                 <input type="text" class="form-control" name="new_extension_unit_id" id="new_extension_unit_id" value=<%= extension_unit_id %>>
                             </div>
@@ -48,15 +48,15 @@
             </table>
             </div>
     
-            <div class="contents_traps_individual_map_and_memo">
-            <div class="contents_traps_individual_map">
-                <p class="contents_traps_individual_map_label">位置情報</p>
-                <div class="contents_traps_individual_map_figure"></div>
+            <div class="contents_map_and_memo">
+            <div class="contents_map">
+                <p class="contents_map_label">位置情報</p>
+                <div class="contents_map_figure"></div>
             </div>    
     
-            <div class="contents_traps_individual_memo">
-                <p class="contents_traps_individual_memo_label">メモ</p>
-                <div class="contents_traps_individual_memo_para">
+            <div class="contents_memo">
+                <p class="contents_memo_label">メモ</p>
+                <div class="contents_memo_para">
                     <div class="mb-3">
                         <textarea class="form-control" id="exampleFormControlTextarea1" name="new_memo" rows="10"><%= memo %></textarea>
                     </div>
@@ -64,57 +64,12 @@
             </div>
             </div>
     
-            <div class="contents_traps_individual_btns">
-            <div class="contents_traps_individual_map_btn"><button type="button" class="btn btn-outline-primary">位置情報を変更</button></div>
-            <div class="contents_traps_individual_memo_btn"><input type="submit" value="新規登録" class="btn btn-primary"></a></div>
+            <div class="contents_foot_btns">
+            <div class="contents_foot_btn"><button type="button" class="btn btn-outline-primary">位置情報を変更</button></div>
+            <div class="contents_foot_btn"><input type="submit" value="新規登録" class="btn btn-primary"></a></div>
             </div>      
         </form>
     </div>  
-
-    <!--
-    <div role="main" id="Box">
-        <div id="contentsHeader">
-            <h1>新規登録</h1>
-            <div id="contentsCancel"><a href="/hanternote"><button type="button" class="btn-close" aria-label="Close"></button></a></div>
-        </div>
-        <form method="post" action="/hanternote/add/<%= trap_id %>">
-            <div id="contentsBox">
-                <div id="contentsText">
-                    <div class="mb-3">
-                        <label for="new_name" class="form-label">名前:</label>
-                        <input type="text" class="form-control" name="new_name" id="new_name" value=<%= name %>>
-                    </div>
-                    <div class="mb-3">
-                        <label for="new_result" class="form-label">捕獲した獣の種類:</label>
-                        <input type="text" class="form-control" name="new_result" id="new_result">
-                    </div>
-                    <div class="mb-3">
-                        <label for="new_extention_unit_id" class="form-label">子機番号：</label>
-                        <input type="text" class="form-control" name="new_extension_unit_id" id="new_extension_unit_id" value=<%= extension_unit_id %>>
-                    </div>
-                </div>
-                <div id="contentsMap">
-                    <p>位置情報：</p>
-                    -->
-
-                    <!-- map -->
-
-                    <!--                    <div id="contentsCanvas"></div>
-                    <button type="button" class="btn btn-primary">位置情報の変更</button>
-                </div>
-                <div id="contentsMemo">
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">メモ:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="new_memo" rows="3"><%= memo %></textarea>
-                    </div>
-                </div>
-            </div>
-            <div id="ti_editButton">
-                <input type="submit" value="新規登録" class="btn btn-primary">
-            </div>
-        </form>
-  </div>
-  -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

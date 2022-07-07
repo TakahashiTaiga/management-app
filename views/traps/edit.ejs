@@ -8,7 +8,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css'>
   </head>
 
-<body class="container">
+<body>
 
     <%- include('../side_bar', {val:1}) %>
 
@@ -18,20 +18,20 @@
             <div class="contents_title"><p class="contents_title_font"><%= name %>を編集</p></div>
             </div>
     
-            <div class="contents_traps_individual_table">
+            <div>
             <table>
                 <tbody>
-                    <tr class="contents_traps_individual_column">
-                        <th class="contents_traps_individual_column_label">名前</th>
-                        <td class="contents_traps_individual_column_data">
+                    <tr>
+                        <th class="contents_column_label">名前</th>
+                        <td class="contents_column_data">
                             <div class="mb-3">
                                 <input type="text" class="form-control" name="new_name" id="new_name" value=<%= name %>>
                             </div>
                         </td>
                     </tr>
-                    <tr class="contents_traps_individual_column">
-                        <th class="contents_traps_individual_column_label">子機番号</th>
-                        <td class="contents_traps_individual_column_data">
+                    <tr>
+                        <th class="contents_column_label">子機番号</th>
+                        <td class="contents_column_data">
                             <div class="mb-3">
                                 <input type="text" class="form-control" name="new_extension_unit_id" id="new_extension_unit_id" value=<%= extension_unit_id %>>
                             </div>
@@ -41,15 +41,15 @@
             </table>
             </div>
     
-            <div class="contents_traps_individual_map_and_memo">
-            <div class="contents_traps_individual_map">
-                <p class="contents_traps_individual_map_label">位置情報</p>
-                <div class="contents_traps_individual_map_figure"></div>
+            <div class="contents_map_and_memo">
+            <div class="contents_map">
+                <p class="contents_map_label">位置情報</p>
+                <div class="contents_map_figure"></div>
             </div>    
     
-            <div class="contents_traps_individual_memo">
-                <p class="contents_traps_individual_memo_label">メモ</p>
-                <div class="contents_traps_individual_memo_para">
+            <div class="contents_memo">
+                <p class="contents_memo_label">メモ</p>
+                <div class="contents_memo_para">
                     <div class="mb-3">
                         <textarea class="form-control" id="exampleFormControlTextarea1" name="new_memo" rows="3"><%= memo %></textarea>
                     </div>
@@ -57,8 +57,8 @@
             </div>
             </div>
     
-            <div class="contents_traps_individual_btns">
-                <div class="contents_traps_individual_map_btn">
+            <div class="contents_foot_btns">
+                <div class="contents_foot_btn">
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">削除</button>
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="contents_traps_individual_memo_btn"><input type="submit" value="完了" class="btn btn-primary"></a></div>
+                <div class="contents_foot_btn"><input type="submit" value="完了" class="btn btn-primary"></a></div>
             </div>      
         </form>
     </div>  

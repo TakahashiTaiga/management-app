@@ -8,7 +8,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css'>
   </head>
 
-<body class="container">
+<body>
 
     <%- include('../side_bar', {val:2}) %>
   
@@ -17,39 +17,39 @@
           <div class="contents_title"><p class="contents_title_font"><%= name %></p></div>
         </div>
   
-        <div class="contents_traps_individual_table">
+        <div>
           <table>
               <tbody>
-                  <tr class="contents_traps_individual_column">
-                      <th class="contents_traps_individual_column_label">子機番号</th>
-                      <td class="contents_traps_individual_column_data"><%= extension_unit_id %></td>
+                  <tr>
+                      <th class="contents_column_label">子機番号</th>
+                      <td class="contents_column_data"><%= extension_unit_id %></td>
                   </tr>
-                  <tr class="contents_traps_individual_column">
-                      <th class="contents_traps_individual_column_label">最初の更新</th>
-                      <td class="contents_traps_individual_column_data"><%= start %></td>
+                  <tr>
+                      <th class="contents_column_label">最初の更新</th>
+                      <td class="contents_column_data"><%= start %></td>
                   </tr>
-                  <tr class="contents_traps_individual_column">
-                      <th class="contents_traps_individual_column_label">最後の更新</th>
-                      <td class="contents_traps_individual_column_data"><%= last %></td>
+                  <tr>
+                      <th class="contents_column_label">最後の更新</th>
+                      <td class="contents_column_data"><%= last %></td>
                   </tr>
               </tbody>
           </table>
         </div>
   
-        <div class="contents_traps_individual_map_and_memo">
-          <div class="contents_traps_individual_map">
-              <p class="contents_traps_individual_map_label">位置情報</p>
-              <div class="contents_traps_individual_map_figure"></div>
+        <div class="contents_map_and_memo">
+          <div class="contents_map">
+              <p class="contents_map_label">位置情報</p>
+              <div class="contents_map_figure"></div>
               </div>
   
-          <div class="contents_traps_individual_memo">
-              <p class="contents_traps_individual_memo_label">メモ</p>
-              <p class="contents_traps_individual_memo_para"><%= memo %></p>
+          <div class="contents_memo">
+              <p class="contents_memo_label">メモ</p>
+              <p class="contents_memo_para"><%= memo %></p>
           </div>
         </div>
   
 
-        <div class="contents_traps_individual_btns">
+        <div class="contents_foot_btns">
             <div></div>
             <a href="/hanternote/edit/<%= hanternote_id %>"><button type="button" class="btn btn-primary">編集</button></a>
         </div>      

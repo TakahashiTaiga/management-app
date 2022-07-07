@@ -8,7 +8,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css'>
   </head>
 
-<body class="container">
+<body>
 
     <%- include('../side_bar', {val:1}) %>
 
@@ -18,20 +18,20 @@
             <div class="contents_title"><p class="contents_title_font">新しいわなを登録</p></div>
             </div>
     
-            <div class="contents_traps_individual_table">
+            <div>
             <table>
                 <tbody>
-                    <tr class="contents_traps_individual_column">
-                        <th class="contents_traps_individual_column_label">名前</th>
-                        <td class="contents_traps_individual_column_data">
+                    <tr>
+                        <th class="contents_column_label">名前</th>
+                        <td class="contents_column_data">
                             <div class="mb-3">
                             <input type="text" class="form-control" name="name" id="name">
                             </div>
                         </td>
                     </tr>
-                    <tr class="contents_traps_individual_column">
-                        <th class="contents_traps_individual_column_label">子機番号</th>
-                        <td class="contents_traps_individual_column_data">
+                    <tr>
+                        <th class="contents_column_label">子機番号</th>
+                        <td class="contents_column_data">
                             <div class="mb-3">
                             <input type="text" class="form-control" name="extension_unit_id" id="extension_unit_id">
                             </div>
@@ -41,15 +41,15 @@
             </table>
             </div>
     
-            <div class="contents_traps_individual_map_and_memo">
-            <div class="contents_traps_individual_map">
-                <p class="contents_traps_individual_map_label">位置情報</p>
-                <div class="contents_traps_individual_map_figure"></div>
+            <div class="contents_map_and_memo">
+            <div class="contents_map">
+                <p class="contents_map_label">位置情報</p>
+                <div class="contents_map_figure"></div>
             </div>    
     
-            <div class="contents_traps_individual_memo">
-                <p class="contents_traps_individual_memo_label">メモ</p>
-                <div class="contents_traps_individual_memo_para">
+            <div class="contents_memo">
+                <p class="contents_memo_label">メモ</p>
+                <div class="contents_memo_para">
                     <div class="mb-3">
                     <textarea class="form-control" id="exampleFormControlTextarea1" name="memo" rows="10"></textarea>
                     </div>
@@ -57,50 +57,12 @@
             </div>
             </div>
     
-            <div class="contents_traps_individual_btns">
-            <div class="contents_traps_individual_map_btn"><button type="button" class="btn btn-outline-primary">位置情報を登録</button></div>
-            <div class="contents_traps_individual_memo_btn"><input type="submit" value="新規登録" class="btn btn-primary"></a></div>
+            <div class="contents_foot_btns">
+            <div class="contents_foot_btn"><button type="button" class="btn btn-outline-primary">位置情報を登録</button></div>
+            <div class="contents_foot_btn"><input type="submit" value="新規登録" class="btn btn-primary"></a></div>
             </div>      
         </form>
     </div>  
-
-<!--
-    <div role="main" id="Box">
-        <form method="post" action="/traps/add">
-            <div id="contentsHeader">
-                <h1>新規登録</h1>
-                <div id="contentsCancel"><a href="/traps"><button type="button" class="btn-close" aria-label="Close"></button></a></div>
-            </div>
-            <div id="contentsBox">
-                <div id="contentsText">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">名前:</label>
-                        <input type="text" class="form-control" name="name" id="name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="extension_unit_id" class="form-label">子機番号：</label>
-                        <input type="text" class="form-control" name="extension_unit_id" id="extension_unit_id">
-                    </div>
-                </div>
-                <div id="contentsMap">
-                    <p>位置情報：</p>
-                    
-                    <div id="contentsCanvas"></div>
-                    <button type="button" class="btn btn-primary">位置情報を登録</button>
-                </div>
-                <div id="contentsMemo">
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">メモ:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="memo" rows="3"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div id="ti_editButton">
-                <input type="submit" value="新規登録" class="btn btn-primary">
-            </div>
-        </form>
-    </div>
-    -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

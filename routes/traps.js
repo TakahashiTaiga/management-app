@@ -16,6 +16,14 @@ function check(req,res) {
     }
 }
 
+function window_check() {
+    if(window.innerWidth>1023){
+        return true;
+    } else {
+        return false;
+    }
+}
+
 const router = express.Router();
 
 /* GET home page. */
@@ -35,6 +43,7 @@ router.get('/', async function(req, res, next) {
 
     const data = {
         title:"ホーム",
+        window_type:window_check,
         mail_address:mail_address,
         contents:result
     }
@@ -45,7 +54,11 @@ router.get('/', async function(req, res, next) {
 // /trap/add
 router.get('/add', function(req, res, next) {
     if (check(req,res)){ return };
-    res.render('traps/add');
+
+    const data = {
+        window_type:window_check
+    }
+    res.render('traps/add', data);
 });
 
 // /trap/add
@@ -87,6 +100,7 @@ router.get('/individual/:trapID', async function(req, res, next) {
 */
     
     const data = {
+        window_type:window_check,
         contents:result[0]
     }
 
@@ -104,8 +118,12 @@ router.get('/edit/:trap_id', async function(req, res, next) {
     const result = await trap_handler.getTrapIndividual(trap_id);
     logger.debug("result:" + result);
 
+    const data = {
+        window_type:window_check,
+        contents:result[0]
+    }
     // redirect /trap
-    res.render('traps/edit', result[0]);
+    res.render('traps/edit', data);
 });
 
 // trap/edit
@@ -136,8 +154,11 @@ router.get('/delete/:trap_id', async function(req, res, next) {
     const result = await trap_handler.deleteTrap(trap_id);
     logger.debug("result:" + result);
 
+    const data = {
+        window_type:window_check
+    }
     // redirect /trap/
-    res.redirect('/traps/');
+    res.redirect('/traps/', data);
 });
 
 module.exports = router;

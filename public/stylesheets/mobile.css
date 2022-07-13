@@ -1,0 +1,216 @@
+/*** for mobile ~ 1023px ***/
+@media screen and (max-width:959px) {
+    #side_bar {
+      display: none;
+    }
+
+    .test {
+      color: aliceblue;
+    }
+  
+    /*** side bar ***/
+    #navigation {
+      position: fixed;
+      top: 0;
+      left: 0;
+  
+      z-index: 100;
+
+      width: 100vw;
+      height: 60px;
+    }
+    .navigation{
+      border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+      background-color: white;
+    }
+    
+    .inner_elements {
+      margin: 15px;
+    }
+
+    .font_inner_elements {
+      font-size: 18px;
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.7);
+    }
+    
+    /*** contents ***/
+    /*  */
+    #contents_main {
+      padding-top: 80px;
+      padding-left: 5vw;
+      padding-right: 5vw;
+    }
+    /*  */
+    /*
+    .contents_header {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: center;
+    }
+    */
+    /*  */
+    .contents_title {
+      padding-top: 15px;
+      padding-right: 3vw;
+    }
+    /*  */
+    .contents_title_font {
+      font-size: 28px;
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.7);
+    }
+  
+    .contents_account {
+      padding-top: 10px;
+    }
+  
+    .contents_account_font {
+      font-size: 18px;
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.7);
+    }
+  
+    /*** contents table ***/
+    .contents_table {
+      padding-top: 3vh;
+    }
+  
+    .contents_table_column_font {
+      font-size: 15px;
+      text-decoration: none;
+    }
+  
+  
+    /*** contents column ***/
+    .contents_column_label {
+      padding-top: 10px;
+  
+      font-size: 15px;
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.7);
+      
+    }
+  
+    .contents_column_data {
+      padding-top: 10px;
+      padding-left: 15px;
+      
+      font-size: 15px;
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.7);
+    }
+  
+    /*** contents map & memo ***/
+    /*
+    .contents_map_and_memo {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: center;
+  
+    }
+    */
+  
+    .contents_map {
+      padding-top: 10px;
+    }
+  
+    .contents_map_label {
+      padding-top: 10px;
+  
+      font-size: 15px;
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.7);
+    }
+  
+    .contents_map_figure {
+      width: 400px;
+      height: 200px;
+      background-color: gray;
+    }
+  
+    .contents_memo {
+      padding-top: 10px;
+    }
+  
+    .contents_memo_label {
+      padding-top: 10px;
+  
+      font-size: 15px;
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.7);
+    }
+  
+    .contents_memo_para {
+      width: 400px;
+      height: 200px;
+    }
+  
+    /*** contents foot btns ***/
+    .contents_foot_btns {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+
+      margin-top: 60px;
+      margin-bottom: 30px;
+    }
+
+    .contents_foot_btn {
+      padding-top: 10px;
+    }
+  
+    /*** login form ***/
+    .login_form {
+      margin: auto;
+      margin-top: 50px;
+      padding: 30px;
+      padding-bottom: 50px;
+      width: 350px;
+  
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      border-radius: 25px;
+    }
+  
+    .form_contents{
+      margin-top: 40px;
+    }
+  
+    .inner_form {
+      margin-bottom: 20px;
+    }
+  
+    .form_elements {
+      margin-bottom: 10px;
+    }
+  
+    .form_font {
+      font-size: 20px;
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.7);
+    }
+  
+    .form_btn {
+      margin-top: 10px;
+    }
+  
+    .login_btn_font {
+      text-decoration: none;
+    }
+  
+    .form_message_font {
+      font-size: 12px;
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.7);
+    }
+  
+    .form_message {
+      margin-bottom: 20px;
+    }
+  }
+  

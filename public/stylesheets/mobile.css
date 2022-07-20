@@ -128,7 +128,7 @@
     }
   
     .contents_map_figure {
-      width: 400px;
+      width: 90vw;
       height: 200px;
       background-color: gray;
     }
@@ -146,7 +146,7 @@
     }
   
     .contents_memo_para {
-      width: 400px;
+      width: 90vw;
       height: 200px;
     }
   

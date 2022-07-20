@@ -106,6 +106,18 @@ class trapHandler {
         */
     }
 
+    async getTrapByExtensionUnitID(extension_unit_id) {
+        const handle_func = new hf;
+        const query = "SELECT * FROM trap WHERE extension_unit_id = ?";
+        const values = [extension_unit_id];
+        
+        const result = await handle_func.executeSingleQuery(query, values);
+
+        logger.debug(result);
+        return result;
+
+    }
+
     async updateTrapIndividual(trap_id, extension_unit_id, name, memo) {
         const handle_func = new hf;
         const query = "UPDATE trap SET extension_unit_id = ?, name = ?, memo = ? WHERE trap_id = ?";
@@ -135,6 +147,31 @@ class trapHandler {
             logger.debug(error);
         }
         */
+    }
+
+    async updatePosedtData(trap_id, state, time, option) {
+        const handle_func = new hf;
+
+        // option = 1 -> also update trap.start
+        if(option==0) {
+            const query = "UPDATE trap SET state = ?, last = ? WHERE trap_id = ?";
+            const values = [state, time, trap_id];
+        
+            const result = await handle_func.executeSingleQuery(query, values);
+            logger.debug(result);
+            return result;
+
+        } else if(option==1){
+            const query = "UPDATE trap SET state = ?, start = ?, last = ? WHERE trap_id = ?";
+            const values = [state, time, time, trap_id];
+        
+            const result = await handle_func.executeSingleQuery(query, values);
+            logger.debug(result);
+            return result;
+            
+        }
+        
+        
     }
 
     async deleteTrap(trap_id) {

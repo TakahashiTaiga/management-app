@@ -67,6 +67,17 @@ class installHandler {
         }
         */
     }
+
+    async getUserId(trap_id){
+        const handle_func = new hf;
+        const query = "SELECT user_id from install WHERE trap_id = ?";
+        const values = [trap_id];
+
+        const result = await handle_func.executeSingleQuery(query, values);
+
+        logger.debug(result);
+        return result;
+    }
 }
 
 module.exports = installHandler;

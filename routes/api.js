@@ -34,6 +34,7 @@ router.post('/post', async function (req, res, next) {
     // postされてきたデータのstate=1　かつ　データベースのデータのstate=0　のとき
     if(trap[0]["state"]=="0") {
     
+      /* SQL分でなんとかしろ */
       // installからuser_idを持ってくる
       logger.debug("call getUserId");
       const install_handler = new ih();
@@ -46,9 +47,9 @@ router.post('/post', async function (req, res, next) {
       const mail_address = await user_handler.getUserMailAddress(user_id[0]["user_id"]);
       logger.debug("mail_address:"+mail_address);
     
+
       /* ここに通知機能を */
       // メールする
-      
       logger.debug("call sendGmail");
       const send_mail = new sm();
       const mail = send_mail.sendGmail(mail_address[0]["mail_address"], trap[0]["name"]);

@@ -1,6 +1,6 @@
 const mysql = require("mysql2/promise");
-const md5 = require("md5");
 const hf = require('./handleFuncs');
+const crypto = require('crypto');
 
 const log4js = require("log4js");
 const logger = log4js.getLogger();
@@ -10,7 +10,9 @@ logger.level = "debug";
 class userHandler {
 
     async findUser(mail, pass){
-        let hash_pass = md5(pass);
+        const hash_pass = crypto.createHash('sha256', process.env.CRYPTO_PASS)
+                    .update(pass)
+                    .digest('hex');
 
         const handle_func = new hf;
         const query = "SELECT user_id, mail_address FROM user WHERE mail_address = ? and pass = ?";
@@ -42,7 +44,9 @@ class userHandler {
     }
 
     async addUser(mail, pass){
-        let hash_pass = md5(pass);
+        const hash_pass = crypto.createHash('sha256', process.env.CRYPTO_PASS)
+                    .update(pass)
+                    .digest('hex');
 
         const handle_func = new hf;
         const query = "INSERT INTO user (mail_address, pass) VALUES (?, ?)";
@@ -105,7 +109,9 @@ class userHandler {
     }
 
     async updateUser(user_id, mail, pass){
-        let hash_pass = md5(pass);
+        const hash_pass = crypto.createHash('sha256', process.env.CRYPTO_PASS)
+                    .update(pass)
+                    .digest('hex');
 
         const handle_func = new hf;
         const query = "UPDATE user SET mail_address = ?, pass = ? WHERE user_id = ?";

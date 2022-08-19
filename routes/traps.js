@@ -4,6 +4,9 @@ const th = require('../dbhandler/trapHandler');
 const log4js = require("log4js");
 const logger = log4js.getLogger();
 logger.level = "debug";
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
+
 
 // login using session
 function check(req,res) {
@@ -13,14 +16,6 @@ function check(req,res) {
       return true;
     } else {
       return false;
-    }
-}
-
-function window_check() {
-    if(window.innerWidth>1023){
-        return true;
-    } else {
-        return false;
     }
 }
 
@@ -43,7 +38,6 @@ router.get('/', async function(req, res, next) {
 
     const data = {
         title:"ホーム",
-        window_type:window_check,
         mail_address:mail_address,
         contents:result
     }
@@ -52,11 +46,11 @@ router.get('/', async function(req, res, next) {
 });
 
 // /trap/add
-router.get('/add', function(req, res, next) {
+router.get('/add', csrfProtection, function(req, res, next) {
     if (check(req,res)){ return };
 
     const data = {
-        window_type:window_check
+        csrfToken: req.csrfToken()
     }
     res.render('traps/add', data);
 });
@@ -100,7 +94,6 @@ router.get('/individual/:trapID', async function(req, res, next) {
 */
     
     const data = {
-        window_type:window_check,
         contents:result[0]
     }
 
@@ -109,7 +102,7 @@ router.get('/individual/:trapID', async function(req, res, next) {
 });
   
 // trap/edit
-router.get('/edit/:trap_id', async function(req, res, next) {
+router.get('/edit/:trap_id', csrfProtection, async function(req, res, next) {
     if (check(req,res)){ return };
     const trap_id = req.params.trap_id * 1;
 
@@ -119,7 +112,7 @@ router.get('/edit/:trap_id', async function(req, res, next) {
     logger.debug("result:" + result);
 
     const data = {
-        window_type:window_check,
+        csrfToken: req.csrfToken(),
         contents:result[0]
     }
     // redirect /trap
@@ -141,7 +134,7 @@ router.post('/edit/:trap_id', async function(req, res, next) {
     logger.debug("result:" + result);
 
     // redirect /trap
-    res.redirect('/traps');
+    res.redirect('/traps/');
 });
   
 // trap/delete/:trap_id
@@ -154,11 +147,9 @@ router.get('/delete/:trap_id', async function(req, res, next) {
     const result = await trap_handler.deleteTrap(trap_id);
     logger.debug("result:" + result);
 
-    const data = {
-        window_type:window_check
-    }
+    
     // redirect /trap/
-    res.redirect('/traps/', data);
+    res.redirect('/traps/');
 });
 
 module.exports = router;

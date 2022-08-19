@@ -15,12 +15,13 @@
 
 <body>
 
-        <%- include('../side_bar', {val:1}) %>
+    <%- include('../side_bar', {val:1}) %>
     <%- include('../navigation', {val:1}) %>
 
 
     <div id="contents_main">
         <form method="post" action="/traps/add">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="contents_header">
             <div class="contents_title"><p class="contents_title_font">新しいわなを登録</p></div>
             </div>

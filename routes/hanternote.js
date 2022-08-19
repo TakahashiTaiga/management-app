@@ -3,6 +3,9 @@ var path = require('path');
 var hh = require('../dbhandler/hanternoteHandler');
 var th = require('../dbhandler/trapHandler');
 var router = express.Router();
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
+
 
 const log4js = require("log4js");
 const logger = log4js.getLogger();
@@ -47,7 +50,7 @@ router.get('/', async function(req, res, next) {
         last:"2022:12:19:12:30"},   
   }
 */
-  var data = {
+  const data = {
     title:"ハンターノート",
     mail_address:mail_address,
     contents:result
@@ -98,7 +101,7 @@ router.get('/record/:hanternote_id', async function(req, res, next) {
 });
 
 //hanternote/add
-router.get('/add/:trap_id', async function(req, res, next) {
+router.get('/add/:trap_id', csrfProtection, async function(req, res, next) {
   if (check(req,res)){ return };
 
   const trap_id = req.params.trap_id * 1;
@@ -132,8 +135,12 @@ router.get('/add/:trap_id', async function(req, res, next) {
     }
   */
 
+  const data = {
+    "contents":result[0],
+    csrfToken: req.csrfToken()
+  }
   // add recordID to url
-  res.render('hanternote/add', result[0]);
+  res.render('hanternote/add', data);
 });
 
 //hanternote/add
@@ -170,14 +177,14 @@ router.post('/add/:trap_id', async function(req, res, next) {
 });
 
 //hanternote/edit
-router.get('/edit/:hanternote_id', async function(req, res, next) {
+router.get('/edit/:hanternote_id', csrfProtection, async function(req, res, next) {
   if (check(req,res)){ return };
   const hanternote_id = req.params.hanternote_id * 1;
 
   logger.debug("call getHanternoteRecord");
   const hanternote_handler = new hh();
   const result = await hanternote_handler.getHanternoteRecord(hanternote_id);
-  logger.debug("result:" + result[0]);
+  logger.debug("result:" + result[0], { csrfToken: req.csrfToken() });
 
 /*
   if(hanternoteID == "1113"){
@@ -199,8 +206,13 @@ router.get('/edit/:hanternote_id', async function(req, res, next) {
       }    
   }
 */
+
+  const data = {
+    contents:result[0],
+    csrfToken: req.csrfToken()
+  }
   // add recordID to url
-  res.render('hanternote/edit', result[0]);
+  res.render('hanternote/edit', data);
 });
 
 //hanternote/edit
@@ -225,7 +237,7 @@ router.post('/edit/:hanternote_id', async function(req, res, next) {
 });
   
 //hanternote/delete
-router.get('/delete/:hanternote_id', async function(req, res, next) {
+router.get('/delete/:hanternote_id', csrfProtection, async function(req, res, next) {
   if (check(req,res)){ return };
   const hanternote_id = req.params.hanternote_id * 1;
 

@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require('express-session');
 require('dotenv').config();
+const helmet = require("helmet");
+const csrf = require('csurf');
 
 var apiRouter = require('./routes/api');
 var hanternoteRouter = require('./routes/hanternote');
@@ -18,6 +20,19 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+      directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
+          objectSrc: ["'none'"],
+          styleSrc: ["'self'", "https://cdn.jsdelivr.net"],
+          upgradeInsecureRequests: [],
+      },
+  })
+);
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -30,6 +45,8 @@ var session_opt = {
   saveUninitialized: false, 
   cookie: { maxAge: 60 * 60 * 1000 }
 };
+const csrfProtection = csrf({ cookie: true });
+
 app.use(session(session_opt));
 
 app.use('/', indexRouter);

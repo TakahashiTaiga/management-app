@@ -1,18 +1,21 @@
 {
   "name": "research-server",
   "version": "0.0.0",
-  "main":"trap.js",
+  "main": "trap.js",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
+    "crypto": "^1.0.1",
+    "csurf": "^1.11.0",
     "debug": "~2.6.9",
     "dotenv": "^16.0.1",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "express-session": "^1.17.3",
+    "helmet": "^5.1.1",
     "http-errors": "~1.6.3",
     "json-cyclic": "^1.0.2",
     "log4js": "^6.5.2",

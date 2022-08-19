@@ -21,6 +21,7 @@
 
     <div id="contents_main">
         <form method="post" action="/traps/edit/<%= contents.trap_id %>">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="contents_header">
             <div class="contents_title"><p class="contents_title_font"><%= contents.name %>を編集</p></div>
             </div>

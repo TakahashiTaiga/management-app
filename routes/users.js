@@ -4,10 +4,11 @@ const uh = require('../dbhandler/userHandler');
 const log4js = require("log4js");
 const logger = log4js.getLogger();
 logger.level = "debug";
+const csrf = require('csurf');
+const csrfProtection = csrf({ cookie: true });
 
 function check(req,res) {
   if (req.session.login == null) {
-    req.session.back = '/traps';
     res.redirect('/users/login');
     return true;
   } else {
@@ -19,15 +20,16 @@ var router = express.Router();
 
 /* GET home page. */
 // /users/login
-router.get('/login', function(req, res, next) {
+router.get('/login', csrfProtection, function(req, res, next) {
   const data = {
-    content:'メールアドレスとパスワードを入力して下さい。'
+    content:'メールアドレスとパスワードを入力して下さい。',
+    csrfToken: req.csrfToken()
   }
   res.render('users/login', data);
 });
 
 // /users/login
-router.post('/login', async function(req, res, next) {
+router.post('/login', csrfProtection, async function(req, res, next) {
   // get post data
   const mail_address = req.body.mail_address;
   const pass = req.body.password;
@@ -42,6 +44,28 @@ router.post('/login', async function(req, res, next) {
   const result = await user_handler.findUser(mail_address, pass);
   logger.debug("result:" + result);
   
+ 
+  try {
+    if(result[0]["user_id"]!=null){
+      req.session.login = result;
+      let back = req.session.back;
+      if (back == null){
+        back = '/traps';
+      }
+      res.redirect(back);
+    }
+  } catch (error) {
+    throw error
+  } finally {
+    const data = {
+      content:'名前かパスワードに問題があります。再度して入力下さい。',
+      csrfToken: req.csrfToken()
+    }
+
+    res.render('users/login', data);
+  }
+
+  /*
   if(result[0]!=null){
     req.session.login = result;
     let back = req.session.back;
@@ -51,18 +75,21 @@ router.post('/login', async function(req, res, next) {
     res.redirect(back);
   }else{
     const data = {
-      content:'名前かパスワードに問題があります。再度して入力下さい。'
+      content:'名前かパスワードに問題があります。再度して入力下さい。',
+      csrfToken: req.csrfToken()
     }
 
     res.render('users/login', data);
   }
+  */
 });
 
 // /users/add
-router.get('/add', function(req, res, next) {
+router.get('/add', csrfProtection, function(req, res, next) {
   const data = {
     title:'新規登録',
-    content:'新規登録するメールアドレスとパスワードを入力下さい。'
+    content:'新規登録するメールアドレスとパスワードを入力下さい。',
+    csrfToken: req.csrfToken()
   }
   res.render('users/add', data);
 });
@@ -83,7 +110,7 @@ router.post('/add', async function(req, res, next) {
 });
 
 // /users/edit
-router.get('/edit', async function(req, res, next) {
+router.get('/edit', csrfProtection, async function(req, res, next) {
   if (check(req,res)){ return };
   // user mailaddress from db
   const user_id = req.session.login[0]["user_id"];
@@ -97,7 +124,8 @@ router.get('/edit', async function(req, res, next) {
   const data = {
     title:'ユーザー情報の編集',
     content:'新しいメールアドレスとパスワードを入力下さい。',
-    old_mail_address:result[0]["mail_address"]
+    old_mail_address:result[0]["mail_address"],
+    csrfToken: req.csrfToken()
   }
 
   // redirect /

@@ -67,6 +67,11 @@ router.post('/add', async function(req, res, next) {
     const trap_handler = new th();
     const result = await trap_handler.addTrap(user_id, extension_unit_id, name, memo);
     logger.debug("result:" + result);
+    const lat = req.body.lat;
+    const lng = req.body.lng;
+    logger.debug("lat" + lat);
+    logger.debug("lng" + lng);
+    
 
     // redirect /
     res.redirect('/traps');

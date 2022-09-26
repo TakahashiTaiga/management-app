@@ -20,18 +20,25 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
+// leafletが弾かれる
+/*
+const cdn = "https://cdn.jsdelivr.net";
+const unpkg = "https://unpkg.com";
 app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
       directives: {
           defaultSrc: ["'self'"],
-          scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
+          imgSrc: ["'self'", cdn, unpkg],
+          scriptSrc: ["'self'", cdn, unpkg, "'unsafe-inline'"],
           objectSrc: ["'none'"],
-          styleSrc: ["'self'", "https://cdn.jsdelivr.net"],
+          styleSrc: ["'self'", "https:", "'unsafe-inline'"],
           upgradeInsecureRequests: [],
       },
   })
 );
+*/
 
 app.use(logger('dev'));
 app.use(express.json());

@@ -134,10 +134,10 @@
     color: rgba(0, 0, 0, 0.7);
   }
 
-  .contents_map_figure {
+  #mapid{
     width: 30vw;
     height: 30vh;
-    background-color: gray;
+  	background-color: gray;
   }
 
   .contents_memo {

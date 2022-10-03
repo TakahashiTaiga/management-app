@@ -62,16 +62,13 @@ router.post('/add', async function(req, res, next) {
     const extension_unit_id = req.body.extension_unit_id;
     const memo = req.body.memo;
     const user_id = req.session.login[0]["user_id"];
+    const lat = req.body.lat;
+    const lng = req.body.lng;
 
     logger.debug("call addTrap");
     const trap_handler = new th();
-    const result = await trap_handler.addTrap(user_id, extension_unit_id, name, memo);
+    const result = await trap_handler.addTrap(user_id, extension_unit_id, name, memo, lat, lng);
     logger.debug("result:" + result);
-    const lat = req.body.lat;
-    const lng = req.body.lng;
-    logger.debug("lat" + lat);
-    logger.debug("lng" + lng);
-    
 
     // redirect /
     res.redirect('/traps');
@@ -131,11 +128,14 @@ router.post('/edit/:trap_id', async function(req, res, next) {
     const name = req.body.new_name;
     const extension_unit_id = req.body.new_extension_unit_id;
     const memo = req.body.new_memo;
-    logger.debug(trap_id, extension_unit_id, name, memo);
+    const lat = req.body.lat;
+    const lng = req.body.lng;
+
+    logger.debug(trap_id, extension_unit_id, name, memo, lat, lng);
 
     logger.debug("call updateTrapIndividual")
     const trap_handler = new th();
-    const result = await trap_handler.updateTrapIndividual(trap_id, extension_unit_id, name, memo);
+    const result = await trap_handler.updateTrapIndividual(trap_id, extension_unit_id, name, memo, lat, lng);
     logger.debug("result:" + result);
 
     // redirect /trap

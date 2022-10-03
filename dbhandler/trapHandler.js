@@ -38,10 +38,10 @@ class trapHandler {
         */
     }
 
-    async addTrap(user_id, extension_unit_id, name, memo){
+    async addTrap(user_id, extension_unit_id, name, memo, lat, lng){
         const handle_func = new hf;
         
-        const result = await handle_func.executeAddTrap(user_id, extension_unit_id, name, memo);
+        const result = await handle_func.executeAddTrap(user_id, extension_unit_id, name, memo, lat, lng);
 
         logger.debug(result);
         return result;
@@ -118,10 +118,10 @@ class trapHandler {
 
     }
 
-    async updateTrapIndividual(trap_id, extension_unit_id, name, memo) {
+    async updateTrapIndividual(trap_id, extension_unit_id, name, memo, lat, lng) {
         const handle_func = new hf;
-        const query = "UPDATE trap SET extension_unit_id = ?, name = ?, memo = ? WHERE trap_id = ?";
-        const values = [extension_unit_id, name, memo, trap_id];
+        const query = "UPDATE trap SET extension_unit_id = ?, name = ?, memo = ?, lat = ?, lng = ? WHERE trap_id = ?";
+        const values = [extension_unit_id, name, memo, lat, lng, trap_id];
         
         const result = await handle_func.executeSingleQuery(query, values);
 

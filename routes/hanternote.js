@@ -157,12 +157,14 @@ router.post('/add/:trap_id', async function(req, res, next) {
   const new_result = req.body.new_result;
   const new_extension_unit_id = req.body.new_extension_unit_id;
   const new_memo = req.body.new_memo;
+  const lat = req.body.lat;
+  const lng = req.body.lng;
 
-  logger.debug(trap_id, new_name, new_result, new_extension_unit_id, new_memo);  
+  logger.debug(trap_id, new_name, new_result, new_extension_unit_id, new_memo, lat, lng);  
   
   logger.debug("call addHanternote");
   const hanternote_handler = new hh();
-  const result = await hanternote_handler.addHnaternote(trap_id, new_name, new_result, new_extension_unit_id, new_memo);
+  const result = await hanternote_handler.addHnaternote(trap_id, new_name, new_result, new_extension_unit_id, new_memo, lat, lng);
   logger.debug("result:" + result);
 
   /*
@@ -225,11 +227,13 @@ router.post('/edit/:hanternote_id', async function(req, res, next) {
   const new_result = req.body.new_result;
   const new_extension_unit_id = req.body.new_extension_unit_id;
   const new_memo = req.body.new_memo;
+  const lat = req.body.lat;
+  const lng = req.body.lng;
 
   // update db
   logger.debug("call updateHanternoteIndividual");
   const hanternote_handler = new hh();
-  const result = await hanternote_handler.updateHanternoteIndividual(hanternote_id, new_extension_unit_id, new_name, new_memo, new_result);
+  const result = await hanternote_handler.updateHanternoteIndividual(hanternote_id, new_extension_unit_id, new_name, new_memo, new_result, lat, lng);
   logger.debug("result:" + result);
 
   // redirect /hanternote/recode

@@ -36,20 +36,21 @@ class handleFuncs {
         }
     }
 
-    async executeAddTrap(user_id, extension_unit_id, name, memo) {
+    async executeAddTrap(user_id, extension_unit_id, name, memo, lat, lng) {
         let connection;
         let res;
         try {
             connection = await mysql.createConnection(this.db_setting)
             await connection.beginTransaction();
-            
-            const query1 = "INSERT INTO trap (extension_unit_id, name, memo) VALUES (?, ?, ?)";
-            const [row1] = await connection.execute(query1, [extension_unit_id, name, memo]);
+            logger.debug("conected");
+
+            const query1 = "INSERT INTO trap (extension_unit_id, name, memo, lat, lng) VALUES (?, ?, ?, ?, ?)";
+            const [row1] = await connection.execute(query1, [extension_unit_id, name, memo, lat, lng]);
             logger.debug("row1:" + row1);
             
             const trap_id = row1.insertId;
             
-            const query2 = "INSERT INTO install (user_id, trap_id, hanternote_id) VALUES (?, ?, -999999)";
+            const query2 = "INSERT INTO install (user_id, trap_id, hanternote_id) VALUES (?, ?, -1)";
             const [row2] = await connection.execute(query2, [user_id, trap_id]);
             logger.debug("row2:" + row2);
 
@@ -66,7 +67,7 @@ class handleFuncs {
         }
     }
 
-    async executeAddHanternote(trap_id, name, result, extension_unit_id, memo) {
+    async executeAddHanternote(trap_id, name, result, extension_unit_id, memo, lat, lng) {
         let connection;
         let res;
         try {
@@ -77,8 +78,8 @@ class handleFuncs {
             const [row1] = await connection.execute(query1, [trap_id]);
             logger.debug("row1:" + row1);
             
-            const query2 = "INSERT INTO hanternote (name, extension_unit_id, start, last, memo, result) VALUES (?, ?, ?, ?, ?, ?)";
-            const [row2] = await connection.execute(query2, [name, extension_unit_id, row1[0]["start"], row1[0]["last"], memo, result]);
+            const query2 = "INSERT INTO hanternote (name, extension_unit_id, start, last, memo, result, lat, lng) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            const [row2] = await connection.execute(query2, [name, extension_unit_id, row1[0]["start"], row1[0]["last"], memo, result, lat, lng]);
             logger.debug("row2:" + row2);
 
             const hanternote_id = row2.insertId;

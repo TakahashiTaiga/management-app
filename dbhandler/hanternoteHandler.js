@@ -69,10 +69,10 @@ class hanternoteHandler {
         */
     }
 
-    async addHnaternote(trap_id, name, result, extension_unit_id, memo){
+    async addHnaternote(trap_id, name, result, extension_unit_id, memo, lat, lng){
         const handle_func = new hf;
         
-        const res = await handle_func.executeAddHanternote(trap_id, name, result, extension_unit_id, memo);
+        const res = await handle_func.executeAddHanternote(trap_id, name, result, extension_unit_id, memo, lat, lng);
         
         logger.debug(res);
         return res;
@@ -114,10 +114,10 @@ class hanternoteHandler {
     }
 
 
-    async updateHanternoteIndividual(hanternote_id, extension_unit_id, name, memo, result) {
+    async updateHanternoteIndividual(hanternote_id, extension_unit_id, name, memo, result, lat, lng) {
         const handle_func = new hf;
-        const query = "UPDATE hanternote SET name = ?, extension_unit_id = ?, memo = ?, result = ? WHERE hanternote_id = ?";
-        const values = [name, extension_unit_id, memo, result, hanternote_id];
+        const query = "UPDATE hanternote SET name = ?, extension_unit_id = ?, memo = ?, result = ?, lat = ?, lng = ? WHERE hanternote_id = ?";
+        const values = [name, extension_unit_id, memo, result, lat, lng, hanternote_id];
         
         const res = await handle_func.executeSingleQuery(query, values);
         

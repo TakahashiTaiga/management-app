@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var hh = require('../dbhandler/hanternoteHandler');
 var th = require('../dbhandler/trapHandler');
+var dh = require('../dbhandler/dataHandler');
 var router = express.Router();
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });

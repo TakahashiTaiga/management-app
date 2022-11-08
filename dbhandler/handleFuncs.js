@@ -98,6 +98,13 @@ class handleFuncs {
             await connection.commit();
             res = row2;
             logger.debug("res:" + res);
+
+
+            const query5 = "UPDATE data SET result = ? WHERE start = ?, update_time = ?, lat = ?, lng = ?";
+            const values = [row1[0]["start"], row1[0]["last"], lat, lng, result];
+            const res2 = await this.executeSingleQuery(query5, values);
+            logger.debug(res2);
+
         } catch (error) {
             await connection.rollback();
             logger.debug("rollback error:" + error);
@@ -107,6 +114,28 @@ class handleFuncs {
             return res;
         }
     }
+
+    async getDataAll() {
+        let connection;
+        let res;
+        const query = "SELECT * FROM data";
+        try {
+            connection = await mysql.createConnection(this.db_setting)
+            await connection.beginTransaction();
+            const [row] = await connection.execute(query);
+            await connection.commit();
+            res = row;
+            logger.debug("res:" + res);
+        } catch (error) {
+            await connection.rollback();
+            logger.debug("rollback error:" + error);
+        } finally {
+            await connection.end();
+            logger.debug("closed db");
+            return res;
+        }
+    }
+
 }
 
 module.exports = handleFuncs;

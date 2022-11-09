@@ -12,11 +12,9 @@ logger.level = "debug";
 
 // /api/post
 router.post('/post', async function (req, res, next) {
-  const re = req.query;
-  logger.debug("query:" + re);
-  const post_data = re.post_data;
-  logger.debug("body.post_data:" + post_data);
-
+  const body = req.body;
+  logger.debug("body:" + body);
+  const post_data = body.post_data;
   
   // ポストされてきたデータの処理
   const post_extension_unit_ID = post_data.slice(0, 8);
@@ -82,7 +80,8 @@ router.post('/post', async function (req, res, next) {
   logger.debug("call getDataAll");
   const data_handler = new dh();
   await data_handler.addData(start, time, trap[0]["lat"], trap[0]["lng"], trap[0]["state"]);
-  
+
+  res.status(200);
 });
 
 router.get('/get', async function (req, res, next) {

@@ -81,7 +81,7 @@ router.post('/post', async function (req, res, next) {
   const data_handler = new dh();
   await data_handler.addData(start, time, trap[0]["lat"], trap[0]["lng"], trap[0]["state"]);
 
-  res.status(200);
+  res.status(200).send("ok");
 });
 
 router.get('/get', async function (req, res, next) {

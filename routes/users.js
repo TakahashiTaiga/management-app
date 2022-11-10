@@ -58,7 +58,7 @@ router.post('/login', csrfProtection, async function(req, res, next) {
     throw error
   } finally {
     const data = {
-      content:'名前かパスワードに問題があります。再度して入力下さい。',
+      content:'メールアドレスかパスワードに問題があります。再度して入力下さい。',
       csrfToken: req.csrfToken()
     }
 
@@ -102,11 +102,31 @@ router.post('/add', async function(req, res, next) {
 
   logger.debug("called addUser");
   const user_handler = new uh();
-  const result = await user_handler.addUser(mail_address, pass);
-  logger.debug("result:" + result);
+  const result1 = await user_handler.addUser(mail_address, pass);
+  logger.debug("result:" + result1);
+  logger.debug("call findUser");
+  const result2 = await user_handler.findUser(mail_address, pass);
+  logger.debug("result:" + result2);
+  
+  try {
+    if(result[0]["user_id"]!=null){
+      req.session.login = result;
+      let back = req.session.back;
+      if (back == null){
+        back = '/traps';
+      }
+      res.redirect(back);
+    }
+  } catch (error) {
+    throw error
+  } finally {
+    const data = {
+      content:'ログインに失敗しました。',
+      csrfToken: req.csrfToken()
+    }
 
-  // redirect /users/login
-  res.redirect('/users/login');
+    res.render('users/login', data);
+  }
 });
 
 // /users/edit

@@ -55,8 +55,7 @@ router.post('/login', csrfProtection, async function(req, res, next) {
       res.redirect(back);
     }
   } catch (error) {
-    throw error
-  } finally {
+    logger.debug(error);
     const data = {
       content:'メールアドレスかパスワードに問題があります。再度して入力下さい。',
       csrfToken: req.csrfToken()
@@ -109,8 +108,8 @@ router.post('/add', async function(req, res, next) {
   logger.debug("result:" + result2);
   
   try {
-    if(result[0]["user_id"]!=null){
-      req.session.login = result;
+    if(result2[0]["user_id"]!=null){
+      req.session.login = result2;
       let back = req.session.back;
       if (back == null){
         back = '/traps';
@@ -118,13 +117,11 @@ router.post('/add', async function(req, res, next) {
       res.redirect(back);
     }
   } catch (error) {
-    throw error
-  } finally {
+    logger.debug(error);
     const data = {
       content:'ログインに失敗しました。',
       csrfToken: req.csrfToken()
     }
-
     res.render('users/login', data);
   }
 });

@@ -7,8 +7,8 @@
         content="width=device-width,initial-scale=1.0">
     <title><%= title %></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="/stylesheets/mobile.css" rel="stylesheet" type="text/css" media="(max-width: 959px)">
-    <link href="/stylesheets/desktop.css" rel="stylesheet" type="text/css" media="(min-width: 960px)">
+    <link href="/public/stylesheets/mobile.css" rel="stylesheet" type="text/css" media="(max-width: 959px)">
+    <link href="/public/stylesheets/desktop.css" rel="stylesheet" type="text/css" media="(min-width: 960px)">
     
   </head>
 
@@ -21,7 +21,7 @@
     <div class="contents_header">
       <div class="contents_title"><p class="contents_title_font">現在の稼働状況</p></div>
       <div class="contents_account"><p class="contents_account_font"><%= mail_address %>でログイン中</p></div>
-      <div><a href="/traps/add"><button type="button" class="btn btn-primary">新しいわなを登録</button></a></div>
+      <div><a href="/management-app/traps/add"><button type="button" class="btn btn-primary">新しいわなを登録</button></a></div>
     </div>
 
     <div class="contents_table">
@@ -49,7 +49,7 @@
               </td>
               <td><%= contents[i].start %></td>
               <td><%= contents[i].last %></td>
-              <td><a href="/traps/individual/<%= contents[i].trap_id %>">詳細</a></td>
+              <td><a href="/management-app/traps/individual/<%= contents[i].trap_id %>">詳細</a></td>
             </tr>
           <% } %>
         </tbody>

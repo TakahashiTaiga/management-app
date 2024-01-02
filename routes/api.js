@@ -28,11 +28,11 @@ router.post('/post', async function (req, res, next) {
   const trap = await trap_handler.getTrapByExtensionUnitID(post_extension_unit_ID);
   logger.debug("trap:"+trap);
  
-  // もしpostされてきたデータのstateが1だったら
-  if(post_trap_state=="1"){
+  // もしpostされてきたデータのstateが0だったら
+  if(post_trap_state=="0"){
 
     // postされてきたデータのstate=1　かつ　データベースのデータのstate=0　のとき
-    if(trap[0]["state"]=="0") {
+    if(trap[0]["state"]=="1") {
     
       // installからuser_idを持ってくる
       logger.debug("call getUserId");

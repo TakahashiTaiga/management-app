@@ -24,7 +24,7 @@
 
 
     <div id="contents_main">
-        <form method="post" action="/hanternote/add/<%= contents.trap_id %>">
+        <form method="post" action="/management-app/hanternote/add/<%= contents.trap_id %>">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="contents_header">
             <div class="contents_title"><p class="contents_title_font"><%= contents.name %>をハンターノートに登録</p></div>

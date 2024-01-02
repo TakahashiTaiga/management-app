@@ -25,7 +25,7 @@
 
 
     <div id="contents_main">
-        <form method="post" action="/hanternote/edit/<%= contents.hanternote_id %>">
+        <form method="post" action="/management-app/hanternote/edit/<%= contents.hanternote_id %>">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="contents_header">
             <div class="contents_title"><p class="contents_title_font"><%= contents.name %>を編集</p></div>

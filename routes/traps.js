@@ -11,8 +11,8 @@ const csrfProtection = csrf({ cookie: true });
 // login using session
 function check(req,res) {
     if (req.session.login == null) {
-      req.session.back = '/traps';
-      res.redirect('/users/login');
+      req.session.back = '/management-app/traps';
+      res.redirect('/management-app/users/login');
       return true;
     } else {
       return false;
@@ -71,7 +71,7 @@ router.post('/add', async function(req, res, next) {
     logger.debug("result:" + result);
 
     // redirect /
-    res.redirect('/traps');
+    res.redirect('/management-app/traps');
 });
 
 // trap/individual
@@ -139,7 +139,7 @@ router.post('/edit/:trap_id', async function(req, res, next) {
     logger.debug("result:" + result);
 
     // redirect /trap
-    res.redirect('/traps/');
+    res.redirect('/management-app/traps/');
 });
   
 // trap/delete/:trap_id
@@ -154,7 +154,7 @@ router.get('/delete/:trap_id', async function(req, res, next) {
 
     
     // redirect /trap/
-    res.redirect('/traps/');
+    res.redirect('/management-app/traps/');
 });
 
 module.exports = router;

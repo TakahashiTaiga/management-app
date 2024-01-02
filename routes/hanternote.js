@@ -14,8 +14,8 @@ logger.level = "debug";
 
 function check(req,res) {
   if (req.session.login == null) {
-    req.session.back = '/traps';
-    res.redirect('/users/login');
+    req.session.back = '/management-app/traps';
+    res.redirect('/management-app/users/login');
     return true;
   } else {
     return false;
@@ -176,7 +176,7 @@ router.post('/add/:trap_id', async function(req, res, next) {
   */
 
   // redirect /hanternote/recode
-  res.redirect('/hanternote');
+  res.redirect('/management-app/hanternote');
 });
 
 //hanternote/edit
@@ -238,7 +238,7 @@ router.post('/edit/:hanternote_id', async function(req, res, next) {
   logger.debug("result:" + result);
 
   // redirect /hanternote/recode
-  res.redirect('/hanternote');
+  res.redirect('/management-app/hanternote');
 });
   
 //hanternote/delete
@@ -253,7 +253,7 @@ router.get('/delete/:hanternote_id', csrfProtection, async function(req, res, ne
 
 
   // redirect /hanternote/
-  res.redirect('/hanternote/');
+  res.redirect('/management-app/hanternote/');
 });
 
 module.exports = router;

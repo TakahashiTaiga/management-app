@@ -9,7 +9,7 @@ const csrfProtection = csrf({ cookie: true });
 
 function check(req,res) {
   if (req.session.login == null) {
-    res.redirect('/users/login');
+    res.redirect('/management-app/users/login');
     return true;
   } else {
     return false;
@@ -50,7 +50,7 @@ router.post('/login', csrfProtection, async function(req, res, next) {
       req.session.login = result;
       let back = req.session.back;
       if (back == null){
-        back = '/traps';
+        back = '/management-app/traps';
       }
       res.redirect(back);
     }
@@ -164,7 +164,7 @@ router.post('/edit', async function(req, res, next) {
   logger.debug("result:" + result);
 
   // redirect /
-  res.redirect('/users/login');
+  res.redirect('/management-app/users/login');
 });
 
 // /users/delete
@@ -179,7 +179,7 @@ router.get('/delete', async function(req, res, next) {
   logger.debug("result:" + result);
 
   // redirect /
-  res.redirect('/users/login');
+  res.redirect('/management-app/users/login');
 });
 
 module.exports = router;

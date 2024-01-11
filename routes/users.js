@@ -64,23 +64,6 @@ router.post('/login', csrfProtection, async function(req, res, next) {
     res.render('users/login', data);
   }
 
-  /*
-  if(result[0]!=null){
-    req.session.login = result;
-    let back = req.session.back;
-    if (back == null){
-      back = '/traps';
-    }
-    res.redirect(back);
-  }else{
-    const data = {
-      content:'名前かパスワードに問題があります。再度して入力下さい。',
-      csrfToken: req.csrfToken()
-    }
-
-    res.render('users/login', data);
-  }
-  */
 });
 
 // /users/add
@@ -112,7 +95,7 @@ router.post('/add', async function(req, res, next) {
       req.session.login = result2;
       let back = req.session.back;
       if (back == null){
-        back = '/traps';
+        back = '/management-app/traps';
       }
       res.redirect(back);
     }
